@@ -1,10 +1,11 @@
-import collections.abc
+import collections.abc  # noqa: F401
 
 import pptx
 from pptx.dml.color import RGBColor
 from pptx.enum.text import MSO_ANCHOR
 from pptx.enum.text import MSO_AUTO_SIZE
 from pptx.enum.text import PP_ALIGN
+# from pptx.enum.text import PP_BULLET_TYPE
 from pptx.util import Inches
 from pptx.util import Pt
 
@@ -16,6 +17,7 @@ def set_options(
     text=None,
     upper=None,
     width=None,
+    height=None,
     X=None,
     Y=None,
     color=None,
@@ -32,6 +34,8 @@ def set_options(
             shape.text = text.upper()
     if width is not None:
         shape.width = width
+    if height is not None:
+        shape.height = height
     if X is not None:
         shape.top = X
     if Y is not None:
@@ -53,41 +57,49 @@ def set_options(
         shape.text_frame.auto_size = shrink
 
 
-def new_slide(title=None, subtitle=None, text=None, image=None):
+def new_slide(placeholder,title=None, subtitle=None, text=None, image=None):
     presentation = pptx.Presentation()
 
     presentation.slide_width = Inches(16)
     presentation.slide_height = Inches(9)
 
-    slide = presentation.slides.add_slide(presentation.slide_layouts[0])
+    slide = presentation.slides.add_slide(presentation.slide_layouts[placeholder])
+    # TODO: if placeholder = ... do ... elif do ...elif do...
 
-    FIT_TEXT = MSO_AUTO_SIZE.SHAPE_TO_FIT_TEXT
-    FIT_SHAPE = MSO_AUTO_SIZE.TEXT_TO_FIT_SHAPE
     FIT_NONE = MSO_AUTO_SIZE.NONE
 
     ALIGN_TOP = MSO_ANCHOR.TOP
     ALIGN_CENTER = PP_ALIGN.CENTER
+    ALIGN_LEFT   = PP_ALIGN.LEFT
 
-    BLUE_DARK1 = RGBColor(30, 4, 91)
-    BLUE_DARK2 = RGBColor(0, 32, 96)
+    RGBColor(30, 4, 91)
+    RGBColor(0, 32, 96)
     RED = RGBColor(255, 0, 0)
     GREEN = RGBColor(0, 135, 0)
 
+    for shape in slide.placeholders:
+        print('%d %s' % (shape.placeholder_format.idx, shape.name))
+
     if title is not None:
         title_shape = slide.shapes.title
-        title_shape.text = title.upper()
 
-        title_shape.width = Inches(16)
-        title_shape.left = Inches(0)
-        title_shape.top = Inches(1)
+        set_options(
+            title_shape,
+            text=title,
+            upper=True,
+            width=Inches(16),
+            height=None,
+            X=Inches(0.5),
+            Y=Inches(0),
+            color=RED,
+            bold=True,
+            size=36,
+            font="Arial",
+            align_H=ALIGN_CENTER,
+            align_V=ALIGN_TOP,
+            shrink=FIT_NONE,
+        )
 
-        title_shape.text_frame.paragraphs[0].font.color.rgb = RED
-
-        title_shape.text_frame.paragraphs[0].alignment = PP_ALIGN.CENTER
-        title_shape.text_frame.vertical_anchor = MSO_ANCHOR.TOP
-
-        title_shape.text_frame.paragraphs[0].font.bold = True
-        title_shape.text_frame.paragraphs[0].font.name = "Arial"
 
     if subtitle is not None:
         subtitle_shape = slide.placeholders[1]
@@ -96,31 +108,102 @@ def new_slide(title=None, subtitle=None, text=None, image=None):
             text=subtitle,
             upper=None,
             width=Inches(8),
-            X=Inches(1),
+            height=None,
+            X=Inches(2),
             Y=Inches(1),
             color=GREEN,
             bold=True,
             size=36,
             font="Monotype Corsiva",
-            align_H=ALIGN_CENTER,
+            align_H=ALIGN_LEFT,
             align_V=ALIGN_TOP,
             shrink=FIT_NONE,
         )
     if text is not None:
-        text_box = slide.shapes.add_textbox(0, 0, 100, 100)
-        text_box.text = text
 
-    if image is not None:
-        image_shape = slide.shapes.add_picture(image, 0, 0, 100, 100)
+        slide.placeholders[1].text= 'Find the bullet slide layout'
+        text_box = slide.placeholders[1].text_frame
+        paragraph1 = text_box.add_paragraph()
+        paragraph1.level = 1
+        paragraph1.text = "This is the first paragraph"
+
+        # from pptx.text.text import _Run, BulletFormat
+        paragraph2 = text_box.add_paragraph()
+        paragraph2.level = 0
+        paragraph2.text = "This is the second paragraph"
+        # char = "●"
+
+
+        # set_options(
+        #     text_box,
+        #     text=text,
+        #     upper=None,
+        #     width=Inches(4),
+        #     height=None,
+        #     X=Inches(4),
+        #     Y=Inches(1),
+        #     color=BLUE_DARK2,
+        #     bold=None,
+        #     size=40,
+        #     font="Arial",
+        #     align_H=ALIGN_LEFT,
+        #     align_V=ALIGN_TOP,
+        #     shrink=FIT_TEXT,
+        # )
+
+
+    # if image is not None:
+    #     image_shape = slide.shapes.add_picture(image, 0, 0, 100, 100)
 
     return presentation
 
-
+# 1,3,7 and ... has bullet
 if __name__ == "__main__":
     presentation = new_slide(
-        title="Chapter 2",
+        placeholder=7,
+        title="Introduction",
         subtitle="Définitions",
-        text="This is the text for the slide.",
-        image="img.png",
+        text="Une source radioactive",
+        # text="Une source radioactive est une quantité connue d'un radionucléide qui émet un rayonnement ionisant.",
+        # image="img.png",
     )
     presentation.save("new_slide.pptx")
+
+
+###------------------------------------------------------------
+# i: 0
+#       0 Title 1
+#       1 Subtitle 2
+# i: 1
+#       0 Title 1
+#       1 Content Placeholder 2
+# i: 2
+#       0 Title 1
+#       1 Text Placeholder 2
+# i: 3
+#       0 Title 1
+#       1 Content Placeholder 2
+#       2 Content Placeholder 3
+# i: 4
+#       0 Title 1
+#       1 Text Placeholder 2
+#       2 Content Placeholder 3
+#       3 Text Placeholder 4
+#       4 Content Placeholder 5
+# i: 5
+#       0 Title 1
+# i: 6
+# i: 7
+#       0 Title 1
+#       1 Content Placeholder 2
+#       2 Text Placeholder 3
+# i: 8
+#       0 Title 1
+#       1 Picture Placeholder 2
+#       2 Text Placeholder 3
+# i: 9
+#       0 Title 1
+#       1 Vertical Text Placeholder 2
+# X: 10
+#       0 Vertical Title 1
+#       1 Vertical Text Placeholder 2
