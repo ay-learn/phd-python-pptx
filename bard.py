@@ -5,11 +5,40 @@ from pptx.dml.color import RGBColor
 from pptx.enum.text import MSO_ANCHOR
 from pptx.enum.text import MSO_AUTO_SIZE
 from pptx.enum.text import PP_ALIGN
-# from pptx.enum.text import PP_BULLET_TYPE
+from pptx.oxml.xmlchemy import OxmlElement
 from pptx.util import Inches
 from pptx.util import Pt
 
+# from pptx.enum.text import PP_BULLET_TYPE
+
 # from pptx import Presentation
+
+
+def SubElement(parent, tagname, **kwargs):
+    element = OxmlElement(tagname)
+    element.attrib.update(kwargs)
+    parent.append(element)
+    return element
+
+
+def makeParaBulletPointed(para):
+    """Bullets are set to Arial,
+    actual text can be a different font"""
+    pPr = para._p.get_or_add_pPr()
+    ## Set marL and indent attributes
+    pPr.set("marL", "171450")
+    pPr.set("indent", "9171450")
+    ## Add buFont
+    _ = SubElement(
+        parent=pPr,
+        tagname="a:buFont",
+        typeface="Arial",
+        panose="020B0604020202020204",
+        pitchFamily="34",
+        charset="0",
+    )
+    ## Add buChar
+    _ = SubElement(parent=pPr, tagname="a:buChar", char="●")
 
 
 def set_options(
@@ -57,7 +86,14 @@ def set_options(
         shape.text_frame.auto_size = shrink
 
 
-def new_slide(placeholder,title=None, subtitle=None, text=None, image=None):
+def dot_paragraph(slide, text):
+    text_box = slide.placeholders[1].text_frame
+    paragraph = text_box.add_paragraph()
+    paragraph.text = " " + text
+    makeParaBulletPointed(paragraph)
+
+
+def new_slide(placeholder, title=None, subtitle=None, text=None, image=None):
     presentation = pptx.Presentation()
 
     presentation.slide_width = Inches(16)
@@ -70,7 +106,7 @@ def new_slide(placeholder,title=None, subtitle=None, text=None, image=None):
 
     ALIGN_TOP = MSO_ANCHOR.TOP
     ALIGN_CENTER = PP_ALIGN.CENTER
-    ALIGN_LEFT   = PP_ALIGN.LEFT
+    ALIGN_LEFT = PP_ALIGN.LEFT
 
     RGBColor(30, 4, 91)
     RGBColor(0, 32, 96)
@@ -78,7 +114,7 @@ def new_slide(placeholder,title=None, subtitle=None, text=None, image=None):
     GREEN = RGBColor(0, 135, 0)
 
     for shape in slide.placeholders:
-        print('%d %s' % (shape.placeholder_format.idx, shape.name))
+        print("%d %s" % (shape.placeholder_format.idx, shape.name))
 
     if title is not None:
         title_shape = slide.shapes.title
@@ -100,7 +136,6 @@ def new_slide(placeholder,title=None, subtitle=None, text=None, image=None):
             shrink=FIT_NONE,
         )
 
-
     if subtitle is not None:
         subtitle_shape = slide.placeholders[1]
         set_options(
@@ -121,18 +156,8 @@ def new_slide(placeholder,title=None, subtitle=None, text=None, image=None):
         )
     if text is not None:
 
-        slide.placeholders[1].text= 'Find the bullet slide layout'
-        text_box = slide.placeholders[1].text_frame
-        paragraph1 = text_box.add_paragraph()
-        paragraph1.level = 1
-        paragraph1.text = "This is the first paragraph"
-
-        # from pptx.text.text import _Run, BulletFormat
-        paragraph2 = text_box.add_paragraph()
-        paragraph2.level = 0
-        paragraph2.text = "This is the second paragraph"
-        # char = "●"
-
+        dot_paragraph(slide, "This is the first paragraph")
+        dot_paragraph(slide, "This is the second paragraph")
 
         # set_options(
         #     text_box,
@@ -151,16 +176,16 @@ def new_slide(placeholder,title=None, subtitle=None, text=None, image=None):
         #     shrink=FIT_TEXT,
         # )
 
-
     # if image is not None:
     #     image_shape = slide.shapes.add_picture(image, 0, 0, 100, 100)
 
     return presentation
 
+
 # 1,3,7 and ... has bullet
 if __name__ == "__main__":
     presentation = new_slide(
-        placeholder=7,
+        placeholder=4,
         title="Introduction",
         subtitle="Définitions",
         text="Une source radioactive",
