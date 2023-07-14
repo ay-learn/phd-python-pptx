@@ -21,7 +21,7 @@ def SubElement(parent, tagname, **kwargs):
     return element
 
 
-def makeParaBulletPointed(para):
+def makeParaBulletPointed(para, symbol="●"):
     """Bullets are set to Arial,
     actual text can be a different font"""
     pPr = para._p.get_or_add_pPr()
@@ -38,7 +38,7 @@ def makeParaBulletPointed(para):
         charset="0",
     )
     ## Add buChar
-    _ = SubElement(parent=pPr, tagname="a:buChar", char="●")
+    _ = SubElement(parent=pPr, tagname="a:buChar", char=symbol)
 
 
 def set_options(
@@ -56,7 +56,7 @@ def set_options(
     align_H=None,
     align_V=None,
     shrink=None,
-):
+) -> None:
     if text is not None:
         shape.text = text
         if upper is not None:
@@ -86,20 +86,22 @@ def set_options(
         shape.text_frame.auto_size = shrink
 
 
-def dot_paragraph(slide, text):
+def add_paragraph(slide=None, placeholder=None, text=None) -> None:
+    if slide is None or placeholder is None or text is None:
+        exit("missong args in add_paragraph")
     text_box = slide.placeholders[1].text_frame
     paragraph = text_box.add_paragraph()
-    paragraph.text = " " + text
+    paragraph.text = f" {text}"
     makeParaBulletPointed(paragraph)
 
 
-def new_slide(placeholder, title=None, subtitle=None, text=None, image=None):
+def add_slide(master_layout, title=None, subtitle=None, text=None) -> None:
     presentation = pptx.Presentation()
 
     presentation.slide_width = Inches(16)
     presentation.slide_height = Inches(9)
 
-    slide = presentation.slides.add_slide(presentation.slide_layouts[placeholder])
+    slide = presentation.slides.add_slide(presentation.slide_layouts[master_layout])
     # TODO: if placeholder = ... do ... elif do ...elif do...
 
     FIT_NONE = MSO_AUTO_SIZE.NONE
@@ -155,9 +157,8 @@ def new_slide(placeholder, title=None, subtitle=None, text=None, image=None):
             shrink=FIT_NONE,
         )
     if text is not None:
-
-        dot_paragraph(slide, "This is the first paragraph")
-        dot_paragraph(slide, "This is the second paragraph")
+        add_paragraph(slide, placeholder=1, text="This is the first paragraph")
+        add_paragraph(slide, placeholder=1, text="This is the second paragraph")
 
         # set_options(
         #     text_box,
@@ -184,8 +185,8 @@ def new_slide(placeholder, title=None, subtitle=None, text=None, image=None):
 
 # 1,3,7 and ... has bullet
 if __name__ == "__main__":
-    presentation = new_slide(
-        placeholder=4,
+    presentation = add_slide(
+        master_layout=4,
         title="Introduction",
         subtitle="Définitions",
         text="Une source radioactive",
