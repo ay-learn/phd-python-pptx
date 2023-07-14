@@ -27,7 +27,8 @@ def makeParaBulletPointed(para, symbol="●"):
     pPr = para._p.get_or_add_pPr()
     ## Set marL and indent attributes
     pPr.set("marL", "171450")
-    pPr.set("indent", "9171450")
+    # pPr.set("indent", "171450")
+    pPr.set("indent", "0")
     ## Add buFont
     _ = SubElement(
         parent=pPr,
@@ -86,16 +87,15 @@ def set_options(
         shape.text_frame.auto_size = shrink
 
 
-def add_paragraph(slide=None, placeholder=None, text=None) -> None:
-    if slide is None or placeholder is None or text is None:
-        exit("missong args in add_paragraph")
-    text_box = slide.placeholders[1].text_frame
+def add_paragraph(text_box=None, text=None, symbol="●") -> None:
+    if text_box is None or text is None:
+        exit("missing args in add_paragraph")
     paragraph = text_box.add_paragraph()
     paragraph.text = f" {text}"
-    makeParaBulletPointed(paragraph)
+    makeParaBulletPointed(paragraph, symbol)
 
 
-def add_slide(master_layout, title=None, subtitle=None, text=None) -> None:
+def add_slide(master_layout, title=None, subtitle=None, symbol="●", texts=None) -> None:
     presentation = pptx.Presentation()
 
     presentation.slide_width = Inches(16)
@@ -110,8 +110,8 @@ def add_slide(master_layout, title=None, subtitle=None, text=None) -> None:
     ALIGN_CENTER = PP_ALIGN.CENTER
     ALIGN_LEFT = PP_ALIGN.LEFT
 
-    RGBColor(30, 4, 91)
-    RGBColor(0, 32, 96)
+    BLUE_DARK1 = RGBColor(30, 4, 91)
+    BLUE_DARK2 = RGBColor(0, 32, 96)
     RED = RGBColor(255, 0, 0)
     GREEN = RGBColor(0, 135, 0)
 
@@ -156,26 +156,28 @@ def add_slide(master_layout, title=None, subtitle=None, text=None) -> None:
             align_V=ALIGN_TOP,
             shrink=FIT_NONE,
         )
-    if text is not None:
-        add_paragraph(slide, placeholder=1, text="This is the first paragraph")
-        add_paragraph(slide, placeholder=1, text="This is the second paragraph")
+    if texts is not None:
+        text_box = slide.placeholders[4]
+        text_frame = text_box.text_frame
+        for text in texts:
+            add_paragraph(text_frame, symbol=symbol, text=text)
 
-        # set_options(
-        #     text_box,
-        #     text=text,
-        #     upper=None,
-        #     width=Inches(4),
-        #     height=None,
-        #     X=Inches(4),
-        #     Y=Inches(1),
-        #     color=BLUE_DARK2,
-        #     bold=None,
-        #     size=40,
-        #     font="Arial",
-        #     align_H=ALIGN_LEFT,
-        #     align_V=ALIGN_TOP,
-        #     shrink=FIT_TEXT,
-        # )
+        set_options(
+            text_box,
+            text=None,
+            upper=None,
+            width=Inches(15),
+            height=None,
+            X=Inches(2.25),
+            Y=Inches(1),
+            color=BLUE_DARK2,
+            bold=False,
+            size=30,
+            font="Arial",
+            align_H=ALIGN_LEFT,
+            align_V=ALIGN_TOP,
+            shrink=FIT_NONE,
+        )
 
     # if image is not None:
     #     image_shape = slide.shapes.add_picture(image, 0, 0, 100, 100)
@@ -189,11 +191,17 @@ if __name__ == "__main__":
         master_layout=4,
         title="Introduction",
         subtitle="Définitions",
-        text="Une source radioactive",
-        # text="Une source radioactive est une quantité connue d'un radionucléide qui émet un rayonnement ionisant.",
+        symbol="-",
+        texts=[
+            "Une source radioactive est une quantité connue d'un radionucléide",
+            "qui émet un rayonnement ionisant.",
+        ],
         # image="img.png",
     )
-    presentation.save("new_slide.pptx")
+    if presentation is not None:
+        presentation.save("new_slide.pptx")
+    else:
+        exit("Presentation not saved")
 
 
 ###------------------------------------------------------------
