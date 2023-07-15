@@ -136,6 +136,7 @@ def add_paragraph(text_box=None, text=None, symbol="●") -> None:
 
 
 def add_slide(
+    presentation,
     title=None,
     subtitle=None,
     symbol="●",
@@ -143,11 +144,6 @@ def add_slide(
     image_path=None,
     image_position=None,
 ) -> None:
-    # presentation = pptx.Presentation("template1.pptx")
-    presentation = pptx.Presentation("/tmp/t8.pptx")
-    # presentation = pptx.Presentation("candy.pptx")
-    # presentation = pptx.Presentation()
-
     presentation.slide_width = Inches(16)
     presentation.slide_height = Inches(9)
 
@@ -251,7 +247,12 @@ def add_slide(
 
 # 1,3,7 and ... has bullet
 if __name__ == "__main__":
-    presentation = add_slide(
+    # presentation = pptx.Presentation("template1.pptx")
+    presentation = pptx.Presentation("/tmp/t8.pptx")
+    # presentation = pptx.Presentation("candy.pptx")
+    # presentation = pptx.Presentation()
+    add_slide(
+        presentation,
         title="Introduction",
         subtitle="Définitions",
         symbol="-",
@@ -261,7 +262,21 @@ if __name__ == "__main__":
             "CCC",
         ],
         image_path="img.png",
-        image_position=IMG_BUTTOM, # IMG_RIGHT
+        image_position=IMG_BUTTOM,  # IMG_RIGHT
+    )
+
+
+    add_slide(
+        presentation,
+        title="Introduction1",
+        subtitle="Définitions1",
+        symbol="-",
+        texts=[
+            "Une source radioactive est une quantité connue d'un radionucléide qui émet un rayonnement ionisant.",
+            "Un rayonnement ionisant est un rayonnement électromagnétique ou corpusculaire capable de produire directement ou indirectement des ions lors de son passage à travers la matière. ",
+        ],
+        image_path="img.png",
+        image_position=IMG_BUTTOM,  # IMG_RIGHT
     )
 
     if presentation is not None:
