@@ -20,8 +20,7 @@ BLUE_DARK2 = RGBColor(0, 32, 96)
 RED = RGBColor(255, 0, 0)
 GREEN = RGBColor(0, 135, 0)
 BLACK = RGBColor(0, 0, 0)
-IMG_RIGHT = True
-IMG_BUTTOM = None
+IMG_BUTTOM = ""
 
 
 # Define a base class for text elements
@@ -55,6 +54,17 @@ class TextElement:
                 font = run.font
                 font.color.rgb = rgb
         return self
+
+    # def colorP(self, rgb):
+    #     for paragraph in self.shape.text_frame.paragraphs:
+    #             paragraph.font.color.rgb = rgb
+    #         # if bold is not None:
+    #         #     paragraph.font.bold = bold
+    #         # if font_size is not None:
+    #         #     paragraph.font.size = Pt(font_size)
+    #         # if font_name is not None:
+    #         #     paragraph.font.name = font_name
+    #     return self
 
     def upper(self):
         self.shape.text = self.shape.text.upper()
@@ -97,19 +107,17 @@ class TextElement:
 
 
 # Define a subclass for title element
-class Title(TextElement):
-    def __init__(self, shape):
-        super().__init__(shape)
-
-
-# Define a subclass for subtitle element
 class Subtitle(TextElement):
     def __init__(self, shape):
         super().__init__(shape)
 
 
-# Define a subclass for text box element
-class TextBox(TextElement):
+class Title(TextElement):
+    def __init__(self, shape):
+        super().__init__(shape)
+
+
+class Paragraph(TextElement):
     def __init__(self, shape):
         super().__init__(shape)
 
@@ -121,7 +129,11 @@ class TextBox(TextElement):
         )  # Return a TextElement object to control the individual paragraph
 
 
-# Rename the title method of the Slide class to add_title
+class TextBox(TextElement):
+    def __init__(self, shape):
+        super().__init__(shape)
+
+
 class Slide:
     def __init__(self, presentation):
         self.presentation = presentation
@@ -134,7 +146,7 @@ class Slide:
         # Create attributes for each element as instances of their respective classes
         self.title_shape = Title(self.slide.shapes.title)
         self.subtitle_shape = Subtitle(self.slide.placeholders[1])
-        self.text_box_shape = TextBox(self.slide.placeholders[2])
+        self.paragraph_shape = Paragraph(self.slide.placeholders[2])
 
         # Create an attribute for the shapes collection
         self.shapes = self.slide.shapes
@@ -154,10 +166,24 @@ class Slide:
         # Return the subtitle_shape attribute to use its methods with dot notation
         return self.subtitle_shape
 
+    # paragraph.font.color.rgb = RED
+
     def add_paragraph(self, text=None, symbol="●"):
         # Return the result of calling the add_paragraph method of the text_box_shape attribute
         # This will be a TextElement object that can control the individual paragraph with dot notation
-        return self.text_box_shape.add_paragraph(text, symbol)
+        return self.paragraph_shape.add_paragraph(text, symbol)
+
+    def set_paragraph(self, width=None, height=None, X=None, Y=None):
+        if width is not None:
+            self.paragraph_shape.width(width)
+        if height is not None:
+            self.paragraph_shape.height(height)
+        if X is not None:
+            self.paragraph_shape.X(Y)
+        if Y is not None:
+            self.paragraph_shape.Y(Y)
+
+        return self.paragraph_shape
 
     def add_image(self, image_path, image_position):
         # Use the shapes attribute to add an image to the slide
@@ -213,7 +239,8 @@ def add_slide_from_data(slide_data):
 
     title = slide_data.get("title", "")
     subtitle = slide_data.get("subtitle", "")
-    # paragraphs = slide_data.get("paragraphs", [])
+    paragraphs = slide_data.get("paragraphs", [])
+    image = slide_data.get("image", "")
 
     if title:
         (
@@ -246,8 +273,27 @@ def add_slide_from_data(slide_data):
             .shrink(FIT_NONE)
         )
 
-    # for paragraph in paragraphs:
-    #     slide.add_paragraph(paragraph).height(33)
+    if image == IMG_BUTTOM:
+        img_width = 0
+    else:
+        img_width = 4
+    text_with = 15 - img_width
+
+    slide.set_paragraph(8, 3, 2, 5)
+
+    for paragraph in paragraphs:
+        (
+            slide.add_paragraph(paragraph).width(12)
+            # .height(33)
+            # .X(2)
+            # .Y(1)
+            # .colorP(BLUE_DARK1)
+            # .font_size(36)
+            # .font_name("Arial")
+            # .align_H(ALIGN_LEFT)
+            # .align_V(ALIGN_TOP)
+            # .shrink(FIT_NONE)
+        )
 
     return slide
 
