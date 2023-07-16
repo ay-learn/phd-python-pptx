@@ -1,4 +1,5 @@
 import collections.abc
+import json
 
 import pptx
 from pptx.dml.color import RGBColor
@@ -20,7 +21,9 @@ BLUE_DARK2 = RGBColor(0, 32, 96)
 RED = RGBColor(255, 0, 0)
 GREEN = RGBColor(0, 135, 0)
 BLACK = RGBColor(0, 0, 0)
-IMG_BUTTOM = ""
+
+IMG_BUTTOM = "IMG_BUTTOM"
+IMG_RIGHT = "IMG_RIGHT"
 
 
 # Define a base class for text elements
@@ -201,21 +204,22 @@ class Slide:
 
         return self.paragraph_shape
 
-    def add_image(self, image_path, image_position):
-        # Use the shapes attribute to add an image to the slide
-        # This is similar to your original code
-        if image_position is IMG_RIGHT:
-            left = Inches(12)
-            top = Inches(3)
-            width = Inches(3.90)
+    def add_image(self, image_path:None, image_position):
+        print("img_po_f",image_position)
+        if image_path is not None:
             height = Inches(3)
-        else:
-            left = Inches(6.5)
-            top = Inches(5.30)
-            width = None
-            height = Inches(3)
+            if image_position == IMG_RIGHT:
+                left = Inches(12)
+                top = Inches(3)
+                width = Inches(3.90)
+            else:
+                left = Inches(6.5)
+                top = Inches(5.30)
+                width = None
 
-        self.shapes.add_picture(image_path, left, top, width=width, height=height)
+
+            print("left",left)
+            self.shapes.add_picture(image_path, left, top, width=width, height=height)
         return self
 
     def save(self, path):
@@ -230,25 +234,6 @@ def Presentation(path):
     return pptx.Presentation(path)
 
 
-##2# Example usage:
-##2
-##2presentation = Presentation("t8.pptx")
-##2
-##2# Use the add_title method instead of the title method
-##2# slide1 = Slide(presentation).add_title("Hello World")
-##2slide1 = Slide(presentation)
-##2slide1.add_title("Hello World").upper().bold().width(12).color(RED)
-##2slide1.add_subtitle("This is a subtitle").bold().height(22)
-##2
-##2slide2 = Slide(presentation)
-##2slide2.add_title("Title2").bold().width(12)
-##2slide2.add_paragraph("This is the first paragraph").height(33)
-##2slide2.add_paragraph("This is the second paragraph").height(33)
-##2
-##2slide1.save("new_slide.pptx")
-
-import json
-
 
 def add_slide_from_data(slide_data):
     slide = Slide(presentation)
@@ -256,7 +241,8 @@ def add_slide_from_data(slide_data):
     title = slide_data.get("title", "")
     subtitle = slide_data.get("subtitle", "")
     paragraphs = slide_data.get("paragraphs", [])
-    image = slide_data.get("image", "")
+    image = slide_data.get("image_path", "")
+    image_position = slide_data.get("image_position", IMG_BUTTOM)
 
     if title:
         (
@@ -289,15 +275,21 @@ def add_slide_from_data(slide_data):
             .shrink(FIT_NONE)
         )
 
-    if image == IMG_BUTTOM:
-        img_width = 0
-    else:
+    print("image", image)
+    print("image_position", image_position)
+
+    if image_position == IMG_RIGHT:
         img_width = 4
+    else:
+        img_width = 0
 
     (slide.set_paragraph().width(15 - img_width).X(2.5).Y(1))
 
     for paragraph in paragraphs:
         slide.add_paragraph(text=paragraph, color=RED, font_size=36, font_name="Arial")
+
+    slide.add_image(image_path=image,image_position=image_position)
+
     return slide
 
 
