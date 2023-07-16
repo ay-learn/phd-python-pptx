@@ -55,23 +55,11 @@ class TextElement:
                 font.color.rgb = rgb
         return self
 
-    # def colorP(self, rgb):
-    #     for paragraph in self.shape.text_frame.paragraphs:
-    #             paragraph.font.color.rgb = rgb
-    #         # if bold is not None:
-    #         #     paragraph.font.bold = bold
-    #         # if font_size is not None:
-    #         #     paragraph.font.size = Pt(font_size)
-    #         # if font_name is not None:
-    #         #     paragraph.font.name = font_name
-    #     return self
-
     def upper(self):
         self.shape.text = self.shape.text.upper()
         return self
 
     def bold(self):
-        print("ici bold")
         for paragraph in self.shape.text_frame.paragraphs:
             paragraph.font.bold = True
         return self
@@ -121,12 +109,40 @@ class Paragraph(TextElement):
     def __init__(self, shape):
         super().__init__(shape)
 
-    def add_paragraph(self, text, symbol="●"):
+    # def add_paragraph2(self, text, color=None, font_size=None,font_name=None):
+    #     paragraph = self.shape.text_frame.add_paragraph()
+    #     paragraph.text = text
+    #
+    #     paragraph.font.font_name = font_name
+    #     paragraph.font.font_size = font_size
+    #     paragraph.font.color.rgb = color
+    #
+    #     return TextElement(paragraph)
+
+    def add_paragraph(self, text, color=None, font_size=None, font_name=None):
         paragraph = self.shape.text_frame.add_paragraph()
-        paragraph.text = f"{symbol} {text}"
-        return TextElement(
-            paragraph
-        )  # Return a TextElement object to control the individual paragraph
+
+        run = paragraph.add_run()
+        run.text = text
+
+        if color:
+            run.font.color.rgb = color
+        if font_size:
+            run.font.size = Pt(font_size)
+        if font_name:
+            run.font.name = font_name
+
+        return TextElement(paragraph)
+
+
+# p = text_frame.paragraphs[0]
+# run = p.add_run()
+# run.text = 'Spam, eggs, and spam'
+#
+# font = run.font
+# font.name = 'Calibri'
+# font.size = Pt(18)
+# font.bold = True
 
 
 class TextBox(TextElement):
@@ -168,12 +184,10 @@ class Slide:
 
     # paragraph.font.color.rgb = RED
 
-    def add_paragraph(self, text=None, symbol="●"):
-        # Return the result of calling the add_paragraph method of the text_box_shape attribute
-        # This will be a TextElement object that can control the individual paragraph with dot notation
-        return self.paragraph_shape.add_paragraph(text, symbol)
+    def add_paragraph(self, text=None, color=None, font_size=None, font_name=None):
+        return self.paragraph_shape.add_paragraph(text, color, font_size, font_name)
 
-    def set_paragraph(self, width=None, height=None, X=None, Y=None):
+    def set_paragraph(self, width=None, height=None, X=None, Y=None, rgb=None):
         if width is not None:
             self.paragraph_shape.width(width)
         if height is not None:
@@ -182,6 +196,8 @@ class Slide:
             self.paragraph_shape.X(Y)
         if Y is not None:
             self.paragraph_shape.Y(Y)
+        if rgb is not None:
+            self.paragraph_shape.color(rgb)
 
         return self.paragraph_shape
 
@@ -277,24 +293,11 @@ def add_slide_from_data(slide_data):
         img_width = 0
     else:
         img_width = 4
-    text_with = 15 - img_width
 
-    slide.set_paragraph(8, 3, 2, 5)
+    (slide.set_paragraph().width(15 - img_width).X(2.5).Y(1))
 
     for paragraph in paragraphs:
-        (
-            slide.add_paragraph(paragraph).width(12)
-            # .height(33)
-            # .X(2)
-            # .Y(1)
-            # .colorP(BLUE_DARK1)
-            # .font_size(36)
-            # .font_name("Arial")
-            # .align_H(ALIGN_LEFT)
-            # .align_V(ALIGN_TOP)
-            # .shrink(FIT_NONE)
-        )
-
+        slide.add_paragraph(text=paragraph, color=RED, font_size=36, font_name="Arial")
     return slide
 
 
