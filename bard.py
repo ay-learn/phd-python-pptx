@@ -136,7 +136,7 @@ def add_paragraph(text_box=None, text=None, symbol="●") -> None:
 
 
 def add_slide(
-    presentation,
+    slides,
     title=None,
     subtitle=None,
     symbol="●",
@@ -144,12 +144,6 @@ def add_slide(
     image_path=None,
     image_position=None,
 ) -> None:
-    presentation.slide_width = Inches(16)
-    presentation.slide_height = Inches(9)
-
-    # print_placeholder(presentation)
-    slide = presentation.slides.add_slide(presentation.slide_layouts[0])
-
     ##1 text_box = slide.placeholders[2]
     ##1 text_frame = text_box.text_frame
     ##1
@@ -162,6 +156,7 @@ def add_slide(
 
     # TODO: if placeholder = ... do ... elif do ...elif do...
 
+    slide = slides.add_slide(presentation.slide_layouts[0])
     if title is not None:
         title_shape = slide.shapes.title
 
@@ -251,8 +246,14 @@ if __name__ == "__main__":
     presentation = pptx.Presentation("/tmp/t8.pptx")
     # presentation = pptx.Presentation("candy.pptx")
     # presentation = pptx.Presentation()
+
+    presentation.slide_width = Inches(16)
+    presentation.slide_height = Inches(9)
+
+    # print_placeholder(presentation)
+    slides = presentation.slides
     add_slide(
-        presentation,
+        slides,
         title="Introduction",
         subtitle="Définitions",
         symbol="-",
@@ -265,9 +266,8 @@ if __name__ == "__main__":
         image_position=IMG_BUTTOM,  # IMG_RIGHT
     )
 
-
     add_slide(
-        presentation,
+        slides,
         title="Introduction1",
         subtitle="Définitions1",
         symbol="-",
@@ -276,10 +276,11 @@ if __name__ == "__main__":
             "Un rayonnement ionisant est un rayonnement électromagnétique ou corpusculaire capable de produire directement ou indirectement des ions lors de son passage à travers la matière. ",
         ],
         image_path="img.png",
-        image_position=IMG_BUTTOM,  # IMG_RIGHT
+        image_position=IMG_RIGHT,  # IMG_BUTTOM
     )
 
     if presentation is not None:
         presentation.save("new_slide.pptx")
+        print("---------\nsave => new_slide.pptx")
     else:
         exit("Presentation not saved")
