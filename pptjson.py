@@ -42,11 +42,11 @@ class TextElement:
         return self
 
     def X(self, inches):
-        self.shape.left = Inches(inches)
+        self.shape.top = Inches(inches)
         return self
 
     def Y(self, inches):
-        self.shape.top = Inches(inches)
+        self.shape.left = Inches(inches)
         return self
 
     def color(self, rgb):
@@ -216,15 +216,36 @@ def add_slide_from_data(slide_data):
     # paragraphs = slide_data.get("paragraphs", [])
 
     if title:
-        slide.add_title("Hello World8").upper().width(16).color(RED).bold().color(
-            RED
-        ).X(0).Y(1).upper().font_size(36).font_name("Arial")
-        # .align_H(ALIGN_CENTER).\
-        # align_V(ALIGN_TOP).\
-        # shrink(FIT_NONE)
+        (
+            slide.add_title(title)
+            .X(1)
+            .Y(0)
+            .width(16)
+            .upper()
+            .color(RED)
+            .bold()
+            .font_size(36)
+            .font_name("Arial")
+            .align_H(ALIGN_CENTER)
+            .align_V(ALIGN_TOP)
+            .shrink(FIT_NONE)
+        )
 
     if subtitle:
-        slide.add_subtitle(subtitle).height(22)
+        (
+            slide.add_subtitle(subtitle)
+            .X(2)
+            .Y(1)
+            .width(8)
+            .bold()
+            .color(GREEN)
+            .font_size(36)
+            .font_name("Monotype Corsiva")
+            .align_H(ALIGN_LEFT)
+            .align_V(ALIGN_TOP)
+            .shrink(FIT_NONE)
+        )
+
     # for paragraph in paragraphs:
     #     slide.add_paragraph(paragraph).height(33)
 
