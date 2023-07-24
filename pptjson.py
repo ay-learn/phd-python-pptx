@@ -1,5 +1,8 @@
+#!/usr/bin/env python3
+import sys
 import collections.abc
 import json
+
 
 import pptx
 from pptx.dml.color import RGBColor
@@ -24,6 +27,7 @@ BLACK = RGBColor(0, 0, 0)
 
 IMG_BUTTOM = "IMG_BUTTOM"
 IMG_RIGHT = "IMG_RIGHT"
+
 
 
 # Define a base class for text elements
@@ -204,8 +208,7 @@ class Slide:
 
         return self.paragraph_shape
 
-    def add_image(self, image_path:None, image_position):
-        print("img_po_f",image_position)
+    def add_image(self, image_path: None, image_position):
         if image_path is not None:
             height = Inches(3)
             if image_position == IMG_RIGHT:
@@ -217,8 +220,6 @@ class Slide:
                 top = Inches(5.30)
                 width = None
 
-
-            print("left",left)
             self.shapes.add_picture(image_path, left, top, width=width, height=height)
         return self
 
@@ -234,6 +235,13 @@ def Presentation(path):
     return pptx.Presentation(path)
 
 
+def load_slides_from_json(json_file_path):
+    with open(json_file_path, "r") as f:
+        slides_data = json.load(f)
+
+    for slide_data in slides_data:
+        add_slide_from_data(slide_data)
+
 
 def add_slide_from_data(slide_data):
     slide = Slide(presentation)
@@ -244,12 +252,18 @@ def add_slide_from_data(slide_data):
     image = slide_data.get("image_path", "")
     image_position = slide_data.get("image_position", IMG_BUTTOM)
 
+    if image_position == IMG_RIGHT:
+        img_width = 4
+    else:
+        img_width = 0
+
     if title:
         (
             slide.add_title(title)
             .X(1)
             .Y(0)
             .width(16)
+            .height(8)
             .upper()
             .color(RED)
             .bold()
@@ -265,7 +279,7 @@ def add_slide_from_data(slide_data):
             slide.add_subtitle(subtitle)
             .X(2)
             .Y(1)
-            .width(8)
+            .width(14)
             .bold()
             .color(GREEN)
             .font_size(36)
@@ -275,33 +289,24 @@ def add_slide_from_data(slide_data):
             .shrink(FIT_NONE)
         )
 
-    print("image", image)
-    print("image_position", image_position)
-
-    if image_position == IMG_RIGHT:
-        img_width = 4
-    else:
-        img_width = 0
-
     (slide.set_paragraph().width(15 - img_width).X(2.5).Y(1))
 
     for paragraph in paragraphs:
-        slide.add_paragraph(text=paragraph, color=RED, font_size=36, font_name="Arial")
+        slide.add_paragraph(
+            text=paragraph,
+            color=BLACK,
+            font_size=24,
+            font_name="Arial",
+        )
 
-    slide.add_image(image_path=image,image_position=image_position)
+    # TODO not trow error if not has an image
+    #slide.add_image(image_path=image, image_position=image_position)
 
     return slide
 
 
-def load_slides_from_json(json_file_path):
-    with open(json_file_path, "r") as f:
-        slides_data = json.load(f)
-
-    for slide_data in slides_data:
-        add_slide_from_data(slide_data)
-
-
 presentation = Presentation("t8.pptx")
-load_slides_from_json("slides.json")
+#load_slides_from_json("slides.json")
+load_slides_from_json("/tmp/ppt3.json")
 
 presentation.save("new_slide.pptx")
