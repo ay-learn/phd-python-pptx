@@ -1,23 +1,33 @@
 #!/usr/bin/env python3
-import sys
 import collections.abc
 import json
-
+import sys
 
 import pptx
 from pptx.dml.color import RGBColor
 from pptx.enum.text import MSO_ANCHOR
 from pptx.enum.text import MSO_AUTO_SIZE
 from pptx.enum.text import PP_ALIGN
+from pptx.enum.text import MSO_VERTICAL_ANCHOR
+
 from pptx.oxml.xmlchemy import OxmlElement
 from pptx.util import Inches
 from pptx.util import Pt
 
-FIT_NONE = MSO_AUTO_SIZE.NONE
+SHRINK_NONE = MSO_AUTO_SIZE.NONE
+SHRINK_TEXT = MSO_AUTO_SIZE.SHAPE_TO_FIT_TEXT
+SHRINK_SHAPE = MSO_AUTO_SIZE.TEXT_TO_FIT_SHAPE
 
-ALIGN_TOP = MSO_ANCHOR.TOP
-ALIGN_CENTER = PP_ALIGN.CENTER
-ALIGN_LEFT = PP_ALIGN.LEFT
+ALIGN_V_TOP = MSO_VERTICAL_ANCHOR.TOP
+ALIGN_V_MIDDLE = MSO_VERTICAL_ANCHOR.MIDDLE
+ALIGN_V_BOTTOM =MSO_VERTICAL_ANCHOR.BOTTOM
+ALIGN_V_MIXED =MSO_VERTICAL_ANCHOR.MIXED
+
+MSO_VERTICAL_ANCHOR.MIDDLE
+
+ALIGN_H_CENTER = PP_ALIGN.CENTER
+ALIGN_H_LEFT = PP_ALIGN.LEFT
+ALIGN_H_JUSTIFY = PP_ALIGN.JUSTIFY_LOW
 
 BLUE_DARK1 = RGBColor(30, 4, 91)
 BLUE_DARK2 = RGBColor(0, 32, 96)
@@ -27,7 +37,6 @@ BLACK = RGBColor(0, 0, 0)
 
 IMG_BUTTOM = "IMG_BUTTOM"
 IMG_RIGHT = "IMG_RIGHT"
-
 
 
 # Define a base class for text elements
@@ -91,8 +100,7 @@ class TextElement:
         return self
 
     def align_V(self, anchor):
-        for paragraph in self.shape.text_frame.paragraphs:
-            paragraph.vertical_anchor = anchor
+        self.shape.text_frame.vertical_anchor = anchor
         return self
 
     def shrink(self, auto_size):
@@ -262,16 +270,16 @@ def add_slide_from_data(slide_data):
             slide.add_title(title)
             .X(1)
             .Y(0)
-            .width(16)
-            .height(8)
+            .width(8)
+            .height(5)
             .upper()
             .color(RED)
             .bold()
             .font_size(36)
             .font_name("Arial")
-            .align_H(ALIGN_CENTER)
-            .align_V(ALIGN_TOP)
-            .shrink(FIT_NONE)
+            .align_H(ALIGN_H_CENTER)
+            .align_V(ALIGN_V_TOP)
+            .shrink(SHRINK_SHAPE)
         )
 
     if subtitle:
@@ -284,9 +292,9 @@ def add_slide_from_data(slide_data):
             .color(GREEN)
             .font_size(36)
             .font_name("Monotype Corsiva")
-            .align_H(ALIGN_LEFT)
-            .align_V(ALIGN_TOP)
-            .shrink(FIT_NONE)
+            .align_H(ALIGN_H_LEFT)
+            .align_V(ALIGN_V_TOP)
+            .shrink(SHRINK_TEXT)
         )
 
     (slide.set_paragraph().width(15 - img_width).X(2.5).Y(1))
@@ -300,13 +308,13 @@ def add_slide_from_data(slide_data):
         )
 
     # TODO not trow error if not has an image
-    #slide.add_image(image_path=image, image_position=image_position)
+    # slide.add_image(image_path=image, image_position=image_position)
 
     return slide
 
 
 presentation = Presentation("t8.pptx")
-#load_slides_from_json("slides.json")
+# load_slides_from_json("slides.json")
 load_slides_from_json("/tmp/ppt3.json")
 
 presentation.save("new_slide.pptx")
