@@ -7,9 +7,8 @@ import pptx
 from pptx.dml.color import RGBColor
 from pptx.enum.text import MSO_ANCHOR
 from pptx.enum.text import MSO_AUTO_SIZE
-from pptx.enum.text import PP_ALIGN
 from pptx.enum.text import MSO_VERTICAL_ANCHOR
-
+from pptx.enum.text import PP_ALIGN
 from pptx.oxml.xmlchemy import OxmlElement
 from pptx.util import Inches
 from pptx.util import Pt
@@ -20,8 +19,8 @@ SHRINK_SHAPE = MSO_AUTO_SIZE.TEXT_TO_FIT_SHAPE
 
 ALIGN_V_TOP = MSO_VERTICAL_ANCHOR.TOP
 ALIGN_V_MIDDLE = MSO_VERTICAL_ANCHOR.MIDDLE
-ALIGN_V_BOTTOM =MSO_VERTICAL_ANCHOR.BOTTOM
-ALIGN_V_MIXED =MSO_VERTICAL_ANCHOR.MIXED
+ALIGN_V_BOTTOM = MSO_VERTICAL_ANCHOR.BOTTOM
+ALIGN_V_MIXED = MSO_VERTICAL_ANCHOR.MIXED
 
 MSO_VERTICAL_ANCHOR.MIDDLE
 
@@ -243,6 +242,11 @@ def Presentation(path):
     return pptx.Presentation(path)
 
 
+def remove_first_slide(presentation):
+    xml_slides = presentation.slides._sldIdLst
+    slides = list(xml_slides)
+    xml_slides.remove(slides[0])
+
 def load_slides_from_json(json_file_path):
     with open(json_file_path, "r") as f:
         slides_data = json.load(f)
@@ -268,10 +272,10 @@ def add_slide_from_data(slide_data):
     if title:
         (
             slide.add_title(title)
-            .X(1)
-            .Y(0)
-            .width(8)
-            .height(5)
+            .X(0.5)
+            .Y(0.5)
+            .width(15)
+            .height(4)
             .upper()
             .color(RED)
             .bold()
@@ -314,7 +318,9 @@ def add_slide_from_data(slide_data):
 
 
 presentation = Presentation("t8.pptx")
+
 # load_slides_from_json("slides.json")
 load_slides_from_json("/tmp/ppt3.json")
 
+remove_first_slide(presentation)
 presentation.save("new_slide.pptx")
