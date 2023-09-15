@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import collections.abc  # noqa: F401
 
 import pptx
@@ -45,7 +46,7 @@ def print_placeholder(presentation):
             break
 
 
-def SubElement(parent, tagname, **kwargs):
+def SubElement(parent, tagname, _kwargs):
     element = OxmlElement(tagname)
     element.attrib.update(kwargs)
     parent.append(element)
@@ -119,13 +120,13 @@ def set_options(
         shape.text_frame.auto_size = shrink
 
 
-def add_paragraph_bac(text_box=None, text=None, symbol="●") -> None:
-    if text_box is None or text is None:
-        exit("missing args in add_paragraph")
-    paragraph = text_box.font.size
-    paragraph = text_box.add_paragraph()
-    paragraph.text = f" {text}"
-    makeParaBulletPointed(paragraph, symbol)
+# def add_paragraph_bac(text_box=None, text=None, symbol="●") -> None:
+#     if text_box is None or text is None:
+#         exit("missing args in add_paragraph")
+#     paragraph = text_box.font.size
+#     paragraph = text_box.add_paragraph()
+#     paragraph.text = f" {text}"
+#     makeParaBulletPointed(paragraph, symbol)
 
 
 def add_paragraph(text_box=None, text=None, symbol="●") -> None:
