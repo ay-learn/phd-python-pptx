@@ -1,0 +1,12 @@
+[
+  {
+    "title": "Exemple de Deep learning dans la pratique",
+    "subtitle": "Relation entre les réseaux de neurones artificiels et la fonction linéaire",
+    "paragraphs": ["Pour comprendre la relation entre les réseaux de neurones artificiels et la fonction linéaire, on utilise l'exemple du calcul précédent de la température.\n\nLa fonction linéaire décrit une relation simple entre deux variables, où un changement dans l'une entraîne un changement proportionnel dans l'autre.\n\nPar exemple, si nous avons une fonction qui convertit la température de Celsius en Fahrenheit, cette fonction sera linéaire car chaque augmentation d'un degré Celsius entraîne une augmentation constante de la température en Fahrenheit."]
+  },
+  {
+    "title": "Conversion de Celsius en Fahrenheit",
+    "subtitle": "La formule de conversion et son schéma de réseau",
+    "paragraphs": ["La formule utilisée pour convertir la température de Celsius en Fahrenheit est:\n\\[ ^{\\circ} F=\\frac{9}{5}{ }^{\\circ} C+32 \\]\n\nOn peut le représenter par le schéma de réseau suivant:"]
+  }
+]
