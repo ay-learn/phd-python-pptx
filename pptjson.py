@@ -247,6 +247,7 @@ def remove_first_slide(presentation):
     slides = list(xml_slides)
     xml_slides.remove(slides[0])
 
+
 def load_slides_from_json(json_file_path):
     with open(json_file_path, "r") as f:
         slides_data = json.load(f)
@@ -317,10 +318,10 @@ def add_slide_from_data(slide_data):
     return slide
 
 
-presentation = Presentation("t8.pptx")
+presentation = Presentation("/tmp/t5.pptx")
 
 # load_slides_from_json("slides.json")
-load_slides_from_json("/tmp/ppt3.json")
+load_slides_from_json("/tmp/ppt1.json")
 
 remove_first_slide(presentation)
-presentation.save("new_slide.pptx")
+presentation.save("/tmp/new_slide.pptx")
