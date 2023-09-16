@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from PIL import Image
 import os
 
 import collections.abc
@@ -222,22 +223,34 @@ class Slide:
         return self.paragraph_shape
 
     def add_image(self, image_path=None, image_position=None):
-        if image_path is None:
+        if image_path is None or image_path == "":
+            print(f"image_path={image_path}", file=sys.stderr)
             return self
         if not os.path.isfile(image_path):
+            print(f"File {image_path} does not found", file=sys.stderr)
             return self
+
+        image = Image.open(image_path)
+        image_width, image_height = image.size
+        
+        # Calculate image width and height in inches
+        image_width_inches = image_width / 72
+        image_height_inches = image_height / 72
+
         height = Inches(3)
+        width =  Inches(3) * image_width_inches / image_height_inches
+
+
         if image_position == IMG_RIGHT:
-            left = Inches(12)
+            left = Inches(16) - width
             top = Inches(3)
-            width = Inches(3.90)
+            # width = Inches(3.90)
         else:
-            left = Inches(6.5)
+            left = (Inches(16) - width)/2
             top = Inches(5.30)
-            width = None
 
         try:
-            self.shapes.add_picture(image_path, left, top, width=width, height=height)
+            self.shapes.add_picture(image_path, left=left, top=top, width=width, height=height)
         except FileNotFoundError as e:
             print(f"File {image_path} does not found:{e}", file=sys.stderr)
         return self
