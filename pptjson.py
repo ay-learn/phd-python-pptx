@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import os
+
 import collections.abc
 import json
 import sys
@@ -26,7 +28,11 @@ MSO_VERTICAL_ANCHOR.MIDDLE
 
 ALIGN_H_CENTER = PP_ALIGN.CENTER
 ALIGN_H_LEFT = PP_ALIGN.LEFT
+ALIGN_H_RIGHT = PP_ALIGN.RIGHT
 ALIGN_H_JUSTIFY = PP_ALIGN.JUSTIFY_LOW
+ALIGN_H_DISTRIBUTE = PP_ALIGN.DISTRIBUTE
+ALIGN_H_THAI_DISTRIBUTE = PP_ALIGN.THAI_DISTRIBUTE
+ALIGN_H_MIXED = PP_ALIGN.MIXED
 
 BLUE_DARK1 = RGBColor(30, 4, 91)
 BLUE_DARK2 = RGBColor(0, 32, 96)
@@ -215,19 +221,25 @@ class Slide:
 
         return self.paragraph_shape
 
-    def add_image(self, image_path: None, image_position):
-        if image_path is not None:
-            height = Inches(3)
-            if image_position == IMG_RIGHT:
-                left = Inches(12)
-                top = Inches(3)
-                width = Inches(3.90)
-            else:
-                left = Inches(6.5)
-                top = Inches(5.30)
-                width = None
+    def add_image(self, image_path=None, image_position=None):
+        if image_path is None:
+            return self
+        if not os.path.isfile(image_path):
+            return self
+        height = Inches(3)
+        if image_position == IMG_RIGHT:
+            left = Inches(12)
+            top = Inches(3)
+            width = Inches(3.90)
+        else:
+            left = Inches(6.5)
+            top = Inches(5.30)
+            width = None
 
+        try:
             self.shapes.add_picture(image_path, left, top, width=width, height=height)
+        except FileNotFoundError as e:
+            print(f"File {image_path} does not found:{e}", file=sys.stderr)
         return self
 
     def save(self, path):
@@ -302,7 +314,13 @@ def add_slide_from_data(slide_data):
             .shrink(SHRINK_TEXT)
         )
 
-    (slide.set_paragraph().width(15 - img_width).X(2.5).Y(1))
+    (
+        slide.set_paragraph()
+        .width(15 - img_width)
+        .X(2.5)
+        .Y(1)
+        .align_H(ALIGN_H_JUSTIFY)
+    )
 
     for paragraph in paragraphs:
         slide.add_paragraph(
@@ -313,15 +331,15 @@ def add_slide_from_data(slide_data):
         )
 
     # TODO not trow error if not has an image
-    # slide.add_image(image_path=image, image_position=image_position)
+    slide.add_image(image_path=image, image_position=image_position)
 
     return slide
 
 
-presentation = Presentation("/tmp/t5.pptx")
+presentation = Presentation("t5.pptx")
 
 # load_slides_from_json("slides.json")
-load_slides_from_json("/tmp/ppt1.json")
+load_slides_from_json("ppt1.json")
 
 remove_first_slide(presentation)
-presentation.save("/tmp/new_slide.pptx")
+presentation.save("new_slide.pptx")
