@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
-from PIL import Image
-import os
-
 import collections.abc
 import json
+import os
 import sys
+import xml.etree.ElementTree as ET
 
+import PIL
+import cairosvg
+import random
+import string
+
+import cv2
 import pptx
 from pptx.dml.color import RGBColor
 from pptx.enum.text import MSO_ANCHOR
@@ -44,6 +49,9 @@ BLACK = RGBColor(0, 0, 0)
 IMG_BUTTOM = "IMG_BUTTOM"
 IMG_RIGHT = "IMG_RIGHT"
 
+def generate_random_string(length=6):
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for _ in range(length))
 
 # Define a base class for text elements
 class TextElement:
@@ -230,27 +238,37 @@ class Slide:
             print(f"File {image_path} does not found", file=sys.stderr)
             return self
 
-        image = Image.open(image_path)
-        image_width, image_height = image.size
-        
-        # Calculate image width and height in inches
+        image_width, image_height = 0, 0
+        if image_path.lower().endswith(".svg"):
+            rand_name= generate_random_string(6)
+            output_path=f"/tmp/{rand_name}.png"
+            cairosvg.svg2png(url=image_path, write_to=output_path)
+            image_path=output_path
+
+        image = cv2.imread(image_path)
+        image_height, image_width, _ = image.shape
+
+        # PIL way
+        # image = Image.open(image_path)
+        # image_width, image_height = image.size
+
         image_width_inches = image_width / 72
         image_height_inches = image_height / 72
 
         height = Inches(3)
-        width =  Inches(3) * image_width_inches / image_height_inches
-
+        width = Inches(3) * image_width_inches / image_height_inches
 
         if image_position == IMG_RIGHT:
             left = Inches(16) - width
             top = Inches(3)
-            # width = Inches(3.90)
         else:
-            left = (Inches(16) - width)/2
+            left = (Inches(16) - width) / 2
             top = Inches(5.30)
 
         try:
-            self.shapes.add_picture(image_path, left=left, top=top, width=width, height=height)
+            self.shapes.add_picture(
+                image_path, left=left, top=top, width=width, height=height
+            )
         except FileNotFoundError as e:
             print(f"File {image_path} does not found:{e}", file=sys.stderr)
         return self
@@ -327,13 +345,7 @@ def add_slide_from_data(slide_data):
             .shrink(SHRINK_TEXT)
         )
 
-    (
-        slide.set_paragraph()
-        .width(15 - img_width)
-        .X(2.5)
-        .Y(1)
-        .align_H(ALIGN_H_JUSTIFY)
-    )
+    (slide.set_paragraph().width(15 - img_width).X(2.5).Y(1).align_H(ALIGN_H_JUSTIFY))
 
     for paragraph in paragraphs:
         slide.add_paragraph(
