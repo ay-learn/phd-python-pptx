@@ -1,19 +1,17 @@
 #!/usr/bin/env python3
 import collections.abc
 import json
-import yaml
-
 import os
+import random
+import string
 import sys
 import xml.etree.ElementTree as ET
 
-import PIL
 import cairosvg
-import random
-import string
-
 import cv2
+import PIL
 import pptx
+import yaml
 from pptx.dml.color import RGBColor
 from pptx.enum.text import MSO_ANCHOR
 from pptx.enum.text import MSO_AUTO_SIZE
@@ -51,9 +49,11 @@ BLACK = RGBColor(0, 0, 0)
 IMG_BUTTOM = "IMG_BUTTOM"
 IMG_RIGHT = "IMG_RIGHT"
 
+
 def generate_random_string(length=6):
     letters = string.ascii_lowercase
-    return ''.join(random.choice(letters) for _ in range(length))
+    return "".join(random.choice(letters) for _ in range(length))
+
 
 # Define a base class for text elements
 class TextElement:
@@ -150,7 +150,22 @@ class Paragraph(TextElement):
     #
     #     return TextElement(paragraph)
 
-    def add_paragraph(self, text, color=None, font_size=None, font_name=None):
+    def add_paragraph_1(self, text, color=None, font_size=None, font_name=None):
+        paragraph = self.shape.text_frame.add_paragraph()
+
+        run = paragraph.add_run()
+        run.text = text
+
+        if color:
+            run.font.color.rgb = color
+        if font_size:
+            run.font.size = Pt(font_size)
+        if font_name:
+            run.font.name = font_name
+
+        return TextElement(paragraph)
+
+    def add_paragraph_2(self, text, color=None, font_size=None, font_name=None):
         paragraph = self.shape.text_frame.add_paragraph()
 
         run = paragraph.add_run()
@@ -192,8 +207,12 @@ class Slide:
 
         # Create attributes for each element as instances of their respective classes
         self.title_shape = Title(self.slide.shapes.title)
-        self.subtitle_shape = Subtitle(self.slide.placeholders[1])
-        self.paragraph_shape = Paragraph(self.slide.placeholders[2])
+        self.subtitle_shape_1 = Subtitle(self.slide.placeholders[1])
+        self.subtitle_shape_2 = Subtitle(self.slide.placeholders[5])
+        self.subtitle_shape_3 = Subtitle(self.slide.placeholders[6])
+        self.paragraph_shape_1 = Paragraph(self.slide.placeholders[2])
+        self.paragraph_shape_2 = Paragraph(self.slide.placeholders[3])
+        self.paragraph_shape_3 = Paragraph(self.slide.placeholders[4])
 
         # Create an attribute for the shapes collection
         self.shapes = self.slide.shapes
@@ -206,31 +225,49 @@ class Slide:
         # Return the title_shape attribute to use its methods with dot notation
         return self.title_shape
 
-    def add_subtitle(self, text=None):
+    def add_subtitle_1(self, text=None):
         if text is not None:
-            self.subtitle_shape.text(text)
+            self.subtitle_shape_1.text(text)
+        return self.subtitle_shape_1
 
-        # Return the subtitle_shape attribute to use its methods with dot notation
-        return self.subtitle_shape
+    def add_subtitle_2(self, text=None):
+        if text is not None:
+            self.subtitle_shape_2.text(text)
+        return self.subtitle_shape_2
 
     # paragraph.font.color.rgb = RED
 
-    def add_paragraph(self, text=None, color=None, font_size=None, font_name=None):
-        return self.paragraph_shape.add_paragraph(text, color, font_size, font_name)
+    def add_paragraph_1(self, text=None, color=None, font_size=None, font_name=None):
+        return self.paragraph_shape_1.add_paragraph_1(text, color, font_size, font_name)
 
-    def set_paragraph(self, width=None, height=None, X=None, Y=None, rgb=None):
+    def add_paragraph_2(self, text=None, color=None, font_size=None, font_name=None):
+        return self.paragraph_shape_2.add_paragraph_2(text, color, font_size, font_name)
+
+    def set_paragraph_1(self, width=None, height=None, X=None, Y=None, rgb=None):
         if width is not None:
-            self.paragraph_shape.width(width)
+            self.paragraph_shape_1.width(width)
         if height is not None:
-            self.paragraph_shape.height(height)
+            self.paragraph_shape_1.height(height)
         if X is not None:
-            self.paragraph_shape.X(Y)
+            self.paragraph_shape_1.X(Y)
         if Y is not None:
-            self.paragraph_shape.Y(Y)
+            self.paragraph_shape_1.Y(Y)
         if rgb is not None:
-            self.paragraph_shape.color(rgb)
+            self.paragraph_shape_1.color(rgb)
+        return self.paragraph_shape_1
 
-        return self.paragraph_shape
+    def set_paragraph_2(self, width=None, height=None, X=None, Y=None, rgb=None):
+        if width is not None:
+            self.paragraph_shape_2.width(width)
+        if height is not None:
+            self.paragraph_shape_2.height(height)
+        if X is not None:
+            self.paragraph_shape_2.X(Y)
+        if Y is not None:
+            self.paragraph_shape_2.Y(Y)
+        if rgb is not None:
+            self.paragraph_shape_2.color(rgb)
+        return self.paragraph_shape_2
 
     def add_image(self, image_path=None, image_position=None):
         if image_path is None or image_path == "":
@@ -242,10 +279,10 @@ class Slide:
 
         image_width, image_height = 0, 0
         if image_path.lower().endswith(".svg"):
-            rand_name= generate_random_string(6)
-            output_path=f"/tmp/{rand_name}.png"
+            rand_name = generate_random_string(6)
+            output_path = f"/tmp/{rand_name}.png"
             cairosvg.svg2png(url=image_path, write_to=output_path)
-            image_path=output_path
+            image_path = output_path
 
         image = cv2.imread(image_path)
         image_height, image_width, _ = image.shape
@@ -308,12 +345,15 @@ def load_slides_from_yaml(yaml_file_path):
     for slide_data in slides_data:
         add_slide_from_data(slide_data)
 
+
 def add_slide_from_data(slide_data):
     slide = Slide(presentation)
 
     title = slide_data.get("title", "")
-    subtitle = slide_data.get("subtitle", "")
-    paragraphs = slide_data.get("paragraphs", [])
+    subtitle_1 = slide_data.get("subtitle_1", "")
+    subtitle_2 = slide_data.get("subtitle_2", "")
+    paragraphs_1 = slide_data.get("paragraphs_1", [])
+    paragraphs_2 = slide_data.get("paragraphs_2", [])
     image = slide_data.get("image_path", "")
     image_position = slide_data.get("image_position", IMG_BUTTOM)
 
@@ -339,9 +379,9 @@ def add_slide_from_data(slide_data):
             .shrink(SHRINK_SHAPE)
         )
 
-    if subtitle:
+    if subtitle_1:
         (
-            slide.add_subtitle(subtitle)
+            slide.add_subtitle_1(subtitle_1)
             .X(2)
             .Y(1)
             .width(14)
@@ -354,10 +394,34 @@ def add_slide_from_data(slide_data):
             .shrink(SHRINK_TEXT)
         )
 
-    (slide.set_paragraph().width(15 - img_width).X(2.5).Y(1).align_H(ALIGN_H_JUSTIFY))
+    if subtitle_2:
+        (
+            slide.add_subtitle_2(subtitle_2)
+            .X(2)
+            .Y(1)
+            .width(14)
+            .bold()
+            .color(GREEN)
+            .font_size(36)
+            .font_name("Monotype Corsiva")
+            .align_H(ALIGN_H_LEFT)
+            .align_V(ALIGN_V_TOP)
+            .shrink(SHRINK_TEXT)
+        )
 
-    for paragraph in paragraphs:
-        slide.add_paragraph(
+    (slide.set_paragraph_1().width(15 - img_width).X(2.5).Y(1).align_H(ALIGN_H_JUSTIFY))
+    (slide.set_paragraph_2().width(15 - img_width).X(2.5).Y(1).align_H(ALIGN_H_JUSTIFY))
+
+    for paragraph in paragraphs_1:
+        slide.add_paragraph_1(
+            text=paragraph,
+            color=BLACK,
+            font_size=24,
+            font_name="Arial",
+        )
+
+    for paragraph in paragraphs_2:
+        slide.add_paragraph_2(
             text=paragraph,
             color=BLACK,
             font_size=24,
@@ -370,7 +434,7 @@ def add_slide_from_data(slide_data):
     return slide
 
 
-presentation = Presentation("t5.pptx")
+presentation = Presentation("t2.pptx")
 
 # load_slides_from_json("ppt1.json")
 load_slides_from_yaml("ppt1.yaml")
