@@ -9,7 +9,6 @@ import xml.etree.ElementTree as ET
 
 import cairosvg
 import cv2
-import PIL
 import pptx
 import yaml
 from pptx.dml.color import RGBColor
@@ -20,6 +19,8 @@ from pptx.enum.text import PP_ALIGN
 from pptx.oxml.xmlchemy import OxmlElement
 from pptx.util import Inches
 from pptx.util import Pt
+
+# import PIL
 
 SHRINK_NONE = MSO_AUTO_SIZE.NONE
 SHRINK_TEXT = MSO_AUTO_SIZE.SHAPE_TO_FIT_TEXT
@@ -180,6 +181,21 @@ class Paragraph(TextElement):
 
         return TextElement(paragraph)
 
+    def add_paragraph_3(self, text, color=None, font_size=None, font_name=None):
+        paragraph = self.shape.text_frame.add_paragraph()
+
+        run = paragraph.add_run()
+        run.text = text
+
+        if color:
+            run.font.color.rgb = color
+        if font_size:
+            run.font.size = Pt(font_size)
+        if font_name:
+            run.font.name = font_name
+
+        return TextElement(paragraph)
+
 
 # p = text_frame.paragraphs[0]
 # run = p.add_run()
@@ -235,6 +251,11 @@ class Slide:
             self.subtitle_shape_2.text(text)
         return self.subtitle_shape_2
 
+    def add_subtitle_3(self, text=None):
+        if text is not None:
+            self.subtitle_shape_3.text(text)
+        return self.subtitle_shape_3
+
     # paragraph.font.color.rgb = RED
 
     def add_paragraph_1(self, text=None, color=None, font_size=None, font_name=None):
@@ -242,6 +263,9 @@ class Slide:
 
     def add_paragraph_2(self, text=None, color=None, font_size=None, font_name=None):
         return self.paragraph_shape_2.add_paragraph_2(text, color, font_size, font_name)
+
+    def add_paragraph_3(self, text=None, color=None, font_size=None, font_name=None):
+        return self.paragraph_shape_3.add_paragraph_3(text, color, font_size, font_name)
 
     def set_paragraph_1(self, width=None, height=None, X=None, Y=None, rgb=None):
         if width is not None:
@@ -269,6 +293,19 @@ class Slide:
             self.paragraph_shape_2.color(rgb)
         return self.paragraph_shape_2
 
+    def set_paragraph_3(self, width=None, height=None, X=None, Y=None, rgb=None):
+        if width is not None:
+            self.paragraph_shape_3.width(width)
+        if height is not None:
+            self.paragraph_shape_3.height(height)
+        if X is not None:
+            self.paragraph_shape_3.X(Y)
+        if Y is not None:
+            self.paragraph_shape_3.Y(Y)
+        if rgb is not None:
+            self.paragraph_shape_3.color(rgb)
+        return self.paragraph_shape_3
+
     def add_image(self, image_path=None, image_position=None):
         if image_path is None or image_path == "":
             print(f"image_path={image_path}", file=sys.stderr)
@@ -294,15 +331,15 @@ class Slide:
         image_width_inches = image_width / 72
         image_height_inches = image_height / 72
 
-        height = Inches(3)
-        width = Inches(3) * image_width_inches / image_height_inches
+        height = Inches(4)
+        width = Inches(4) * image_width_inches / image_height_inches
 
         if image_position == IMG_RIGHT:
             left = Inches(16) - width
             top = Inches(3)
         else:
             left = (Inches(16) - width) / 2
-            top = Inches(5.30)
+            top = Inches(4.30)
 
         try:
             self.shapes.add_picture(
@@ -352,13 +389,15 @@ def add_slide_from_data(slide_data):
     title = slide_data.get("title", "")
     subtitle_1 = slide_data.get("subtitle_1", "")
     subtitle_2 = slide_data.get("subtitle_2", "")
+    subtitle_3 = slide_data.get("subtitle_3", "")
     paragraphs_1 = slide_data.get("paragraphs_1", [])
     paragraphs_2 = slide_data.get("paragraphs_2", [])
+    paragraphs_3 = slide_data.get("paragraphs_3", [])
     image = slide_data.get("image_path", "")
     image_position = slide_data.get("image_position", IMG_BUTTOM)
 
     if image_position == IMG_RIGHT:
-        img_width = 4
+        img_width = 6
     else:
         img_width = 0
 
@@ -408,9 +447,24 @@ def add_slide_from_data(slide_data):
             .align_V(ALIGN_V_TOP)
             .shrink(SHRINK_TEXT)
         )
+    if subtitle_3:
+        (
+            slide.add_subtitle_3(subtitle_3)
+            .X(2)
+            .Y(1)
+            .width(14)
+            .bold()
+            .color(GREEN)
+            .font_size(36)
+            .font_name("Monotype Corsiva")
+            .align_H(ALIGN_H_LEFT)
+            .align_V(ALIGN_V_TOP)
+            .shrink(SHRINK_TEXT)
+        )
 
     (slide.set_paragraph_1().width(15 - img_width).X(2.5).Y(1).align_H(ALIGN_H_JUSTIFY))
     (slide.set_paragraph_2().width(15 - img_width).X(2.5).Y(1).align_H(ALIGN_H_JUSTIFY))
+    (slide.set_paragraph_3().width(15 - img_width).X(2.5).Y(1).align_H(ALIGN_H_JUSTIFY))
 
     for paragraph in paragraphs_1:
         slide.add_paragraph_1(
@@ -422,6 +476,14 @@ def add_slide_from_data(slide_data):
 
     for paragraph in paragraphs_2:
         slide.add_paragraph_2(
+            text=paragraph,
+            color=BLACK,
+            font_size=24,
+            font_name="Arial",
+        )
+
+    for paragraph in paragraphs_3:
+        slide.add_paragraph_3(
             text=paragraph,
             color=BLACK,
             font_size=24,
