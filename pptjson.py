@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import collections.abc
 import json
+import yaml
+
 import os
 import sys
 import xml.etree.ElementTree as ET
@@ -299,6 +301,13 @@ def load_slides_from_json(json_file_path):
         add_slide_from_data(slide_data)
 
 
+def load_slides_from_yaml(yaml_file_path):
+    with open(yaml_file_path, "r") as f:
+        slides_data = yaml.safe_load(f)
+
+    for slide_data in slides_data:
+        add_slide_from_data(slide_data)
+
 def add_slide_from_data(slide_data):
     slide = Slide(presentation)
 
@@ -363,8 +372,8 @@ def add_slide_from_data(slide_data):
 
 presentation = Presentation("t5.pptx")
 
-# load_slides_from_json("slides.json")
-load_slides_from_json("ppt1.json")
+# load_slides_from_json("ppt1.json")
+load_slides_from_yaml("ppt1.yaml")
 
 remove_first_slide(presentation)
 presentation.save("new_slide.pptx")
