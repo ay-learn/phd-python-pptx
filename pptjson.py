@@ -66,7 +66,7 @@ class TextElement:
         return self
 
     def width(self, inches):
-        self.shape.width = Inches(inches)
+        self.shape.width = inches
         return self
 
     def height(self, inches):
@@ -109,6 +109,15 @@ class TextElement:
             for run in paragraph.runs:
                 font = run.font
                 font.name = name
+        return self
+
+    def spacing(self):
+        # for paragraph in self.shape.text_frame.paragraphs:
+        #     # help(paragraph)
+        #     paragraph.line_spacing = Pt(100)
+        #     paragraph.space_before = Pt(50)
+        #     paragraph.space_after = Pt(200)
+
         return self
 
     def align_H(self, alignment):
@@ -163,7 +172,6 @@ class Paragraph(TextElement):
             run.font.size = Pt(font_size)
         if font_name:
             run.font.name = font_name
-
         return TextElement(paragraph)
 
     def add_paragraph_2(self, text, color=None, font_size=None, font_name=None):
@@ -205,6 +213,44 @@ class Paragraph(TextElement):
 # font.name = 'Calibri'
 # font.size = Pt(18)
 # font.bold = True
+
+
+def get_img_width(image_path):
+    if image_path is None or image_path == "":
+        print(f"image_path={image_path}", file=sys.stderr)
+        return Inches(0), image_path
+    if not os.path.isfile(image_path):
+        print(f"File {image_path} does not found", file=sys.stderr)
+        return Inches(0), image_path
+
+    if image_path.lower().endswith(".svg"):
+        rand_name = generate_random_string(6)
+        output_path = f"/tmp/{rand_name}.png"
+        cairosvg.svg2png(url=image_path, write_to=output_path)
+        image_path = output_path
+
+
+    image_np = cv2.imread(image_path)
+
+    image_width, image_height = 0, 0
+    try:
+        image_height, image_width, _ = image_np.shape
+    except AttributeError as e:
+        print("image_path=",image_path,"\n", e)
+        return Inches(0), image_path
+
+    # PIL way
+    # image = Image.open(image_path)
+    # image_width, image_height = image.size
+
+    image_width_inches = image_width / 72
+    image_height_inches = image_height / 72
+
+    width = Inches(4) * image_width_inches / image_height_inches
+    if width > Inches(5):
+        width = Inches(5)
+
+    return width, image_path
 
 
 class TextBox(TextElement):
@@ -314,34 +360,14 @@ class Slide:
             print(f"File {image_path} does not found", file=sys.stderr)
             return self
 
-        image_width, image_height = 0, 0
-        if image_path.lower().endswith(".svg"):
-            rand_name = generate_random_string(6)
-            output_path = f"/tmp/{rand_name}.png"
-            cairosvg.svg2png(url=image_path, write_to=output_path)
-            image_path = output_path
-
-        image = cv2.imread(image_path)
-        image_height, image_width, _ = image.shape
-
-        # PIL way
-        # image = Image.open(image_path)
-        # image_width, image_height = image.size
-
-        image_width_inches = image_width / 72
-        image_height_inches = image_height / 72
 
         height = Inches(4)
-        width = Inches(4) * image_width_inches / image_height_inches
+        width, image_path = get_img_width(image_path)
 
         if image_position == IMG_RIGHT:
-            if width > Inches(5):
-                width = Inches(5)
             left = Inches(16) - width
             top = Inches(3)
         else:
-            if width > Inches(14):
-                width = Inches(14)
             left = (Inches(16) - width) / 2
             top = Inches(4.30)
 
@@ -400,17 +426,18 @@ def add_slide_from_data(slide_data):
     image = slide_data.get("image_path", "")
     image_position = slide_data.get("image_position", IMG_BUTTOM)
 
-    if image_position == IMG_RIGHT:
-        img_width = 6
-    else:
-        img_width = 0
+    img_width, _ = get_img_width(image)
 
+    par_width = int(Inches(15) - img_width)
+    # print("img_width:", img_width, end='')
+    # print("\tpar_width:", par_width)
+    # '''
     if title:
         (
             slide.add_title(title)
             .X(0.5)
             .Y(0.5)
-            .width(15)
+            .width(Inches(15))
             .height(4)
             .upper()
             .color(RED)
@@ -466,38 +493,63 @@ def add_slide_from_data(slide_data):
             .shrink(SHRINK_TEXT)
         )
 
-    (slide.set_paragraph_1().width(15 - img_width).X(2.5).Y(1).align_H(ALIGN_H_JUSTIFY))
-    (slide.set_paragraph_2().width(15 - img_width).X(2.5).Y(1).align_H(ALIGN_H_JUSTIFY))
-    (slide.set_paragraph_3().width(15 - img_width).X(2.5).Y(1).align_H(ALIGN_H_JUSTIFY))
+    (
+        slide.set_paragraph_1()
+        .width(par_width)
+        .X(2.5)
+        .Y(1)
+        .align_H(ALIGN_H_RIGHT)
+        .spacing()
+    )
+    (
+        slide.set_paragraph_2()
+        .width(par_width)
+        .X(2.5)
+        .Y(1)
+        .align_H(ALIGN_H_RIGHT)
+        .spacing()
+    )
+    (
+        slide.set_paragraph_3()
+        .width(par_width)
+        .X(2.5)
+        .Y(1)
+        .align_H(ALIGN_H_RIGHT)
+        .spacing()
+    )
 
-    p_size = 18
-    for paragraph in paragraphs_1:
-        slide.add_paragraph_1(
-            text=paragraph,
-            color=BLACK,
-            font_size=p_size,
-            font_name="Arial",
-        )
+    p_size = 22
+    if paragraphs_1:
+        for paragraph in paragraphs_1:
+            slide.add_paragraph_1(
+                text=paragraph,
+                color=BLACK,
+                font_size=p_size,
+                font_name="Arial",
+            )
 
-    for paragraph in paragraphs_2:
-        slide.add_paragraph_2(
-            text=paragraph,
-            color=BLACK,
-            font_size=p_size,
-            font_name="Arial",
-        )
+    if paragraphs_2:
+        for paragraph in paragraphs_2:
+            slide.add_paragraph_2(
+                text=paragraph,
+                color=BLACK,
+                font_size=p_size,
+                font_name="Arial",
+            )
 
-    for paragraph in paragraphs_3:
-        slide.add_paragraph_3(
-            text=paragraph,
-            color=BLACK,
-            font_size=p_size,
-            font_name="Arial",
-        )
+    if paragraphs_3:
+        for paragraph in paragraphs_3:
+            slide.add_paragraph_3(
+                text=paragraph,
+                color=BLACK,
+                font_size=p_size,
+                font_name="Arial",
+            )
 
     # TODO not trow error if not has an image
     slide.add_image(image_path=image, image_position=image_position)
 
+    # '''
     return slide
 
 
