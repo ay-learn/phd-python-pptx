@@ -335,9 +335,13 @@ class Slide:
         width = Inches(4) * image_width_inches / image_height_inches
 
         if image_position == IMG_RIGHT:
+            if width > Inches(5):
+                width = Inches(5)
             left = Inches(16) - width
             top = Inches(3)
         else:
+            if width > Inches(14):
+                width = Inches(14)
             left = (Inches(16) - width) / 2
             top = Inches(4.30)
 
@@ -466,11 +470,12 @@ def add_slide_from_data(slide_data):
     (slide.set_paragraph_2().width(15 - img_width).X(2.5).Y(1).align_H(ALIGN_H_JUSTIFY))
     (slide.set_paragraph_3().width(15 - img_width).X(2.5).Y(1).align_H(ALIGN_H_JUSTIFY))
 
+    p_size = 18
     for paragraph in paragraphs_1:
         slide.add_paragraph_1(
             text=paragraph,
             color=BLACK,
-            font_size=24,
+            font_size=p_size,
             font_name="Arial",
         )
 
@@ -478,7 +483,7 @@ def add_slide_from_data(slide_data):
         slide.add_paragraph_2(
             text=paragraph,
             color=BLACK,
-            font_size=24,
+            font_size=p_size,
             font_name="Arial",
         )
 
@@ -486,7 +491,7 @@ def add_slide_from_data(slide_data):
         slide.add_paragraph_3(
             text=paragraph,
             color=BLACK,
-            font_size=24,
+            font_size=p_size,
             font_name="Arial",
         )
 
