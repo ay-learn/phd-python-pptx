@@ -1,65 +1,75 @@
-# - title: "Exemple de Deep learning dans la pratique"
-#   subtitle_1: "Relation entre le"
-#   paragraphs_1:
-#     - par 1
-#     - par 2
-#   image_path: "../../images/3_nodules.png"
-
-
-# - title: "LE PROCESSUS DE CRÉATION D'UN IA MODEL"
-#   subtitle_1: "La phase de prétraitement des données"
-#   paragraphs_1:
-#     # - "L'utilisation de l'IA pour la détection et la classification des nodules pulmonaires comporte deux parties essentielles:"
-#     - "consiste a détecter un large éventail de nodules avec une grande sensibilité, mais elle génère des faux positifs. La phase suivante réduit ces faux positifs"
-#     - "La Détection des nodules"
-#   image_path: "../../images/model2.png"
-#
-# - title: "LE PROCESSUS DE CRÉATION D'UN IA MODEL"
-#   subtitle_2: "La phase d'entraînement du modèle:"
-#   paragraphs_2:
-#     - "Si l'on entraîne le modèle sur 100 images, par exemple des nodules ou des lésions, le modèle essaie de modifier ses paramètres pour devenir capable de créer certains motifs, par exemple 10 motifs qui caractérisent ces nodules, et ensuite peut classer ces motifs en classes. Dans la classification binaire, nous avons deux classes, soit nodule, soit non-nodule."
-#   image_path: "../../images/model2.png"
-#
-#
-# - title: "LE PROCESSUS DE CRÉATION D'UN IA MODEL"
-#   subtitle_3: "La phase de prédiction:"
-#   paragraphs_3:
-#     - "On entre simplement une image qui peut avoir n'importe quel design, mais grâce aux CNN, cette image devient plus similaire à l'un des motifs sur lesquels le modèle a été entraîné pour la comprendre."
-#   image_path: "../../images/model2.png"
-
-# - title: "RÉSULTAT ET DISCUSSION"
-#   subtitle_1: "Model 1"
-#   paragraphs_1:
-#     - "En examinant les valeurs d'*exactitude* et d'*exactitude de validation* tout au long des étapes d'apprentissage, il est indiqué que le modèle acquiert des connaissances, comme on peut le voir à travers l'amélioration progressive des exactitudes d'entraînement et de validation."
-#     - "Le modèle commence avec des exactitudes relativement plus faibles, autour de $64%$, avant d'augmenter à plus de 89% et de terminer avec un score de 87% à la fin de l'entraînement."
-#     - "Cela démontre la capacité raffinée du modèle à catégoriser correctement un ratio considérable de cas."
-#   image_path : "../../images/class2.svg"
-#   image_position: IMG_RIGHT
-
-
-- title: "T1"
-  subtitle_1: "t1"
+- title: "Exemple de Deep learning dans la pratique"
+  subtitle_1: "Relation entre le"
   paragraphs_1:
-    - "Pou"
-  image_path : "../../images/ch3_tab1.png"
-#
-#
-# - title: "T2"
-#   subtitle_1: "t2"
-#   paragraphs_1:
-#     - "Pou"
-#   image_path : "../../images/ch3_tab2.png"
-#
-#
-# - title: "Exemple de Deep "
-#   subtitle_1: "Relation entre "
-#   paragraphs_1:
-#     - "Pou"
-#   image_path : "../../images/structure_resnet.png"
-#
-#
-# - title: "Exemple de Deep le"
-#   subtitle_1: "Relation entre les réseaux "
-#   paragraphs_1:
-#     - "Pou"
-#   image_path : "../../images/resnet_model6.png"
+    - par1 text_b
+    - par2 text_a
+  image_path: "../../images/3_nodules.png"
+
+
+- title: LE PROCESSUS DE CRÉATION D'UN IA MODEL
+  subtitle_1: La phase de prétraitement des données
+  paragraphs_1:
+    - comment L'utilisation de l'IA pour la détection et la classification
+      des nodules pulmonaires comporte deux parties essentielles.
+    - consiste a détecter un large ... de nodules avec une grande sensibilité,
+      mais elle génère des faux positifs. Ensuite La phase de dectection réduit
+      ces faux positifs.
+  image_path: "../../images/model2.png"
+
+- title: LE PROCESSUS DE CRÉATION D'UN IA MODEL
+  subtitle_2: La phase d'entraînement du modèle
+  paragraphs_2:
+    - L'entraînement de modèle sur les images des nodules ou des lésions,
+      c'est une essaye de model de modifier leur paramètres pour devenir capable de créer
+      certains motifs qui relève les caractéristique et information content
+      dans les images.
+
+    - Ensuite, en peut classer ces motifs en certaine classes.
+
+    - Dans notre cas en  parler sur la classification binaire, nous avons deux classes.
+      soit nodule, soit non-nodule.
+  image_path: "../../images/model2.png"
+#1
+#1
+#1- title: "LE PROCESSUS DE CRÉATION D'UN IA MODEL"
+#1  subtitle_3: "La phase de prédiction:"
+#1  paragraphs_3:
+#1    - "L'image qui ente dans la phase de classification et qui peut avoir n'importe quel design ou form, cette image devient plus similaire à l'un des motifs sur lesquels le modèle a été entraîné pour la comprendre."
+#1  image_path: "../../images/model2.png"
+#1
+#1- title: "RÉSULTAT ET DISCUSSION"
+#1  subtitle_1: "Model 1"
+#1  paragraphs_1:
+#1    - "En examinant les valeurs d'*exactitude* et d'*exactitude de validation* tout au long des étapes d'apprentissage, il est indiqué que le modèle acquiert des connaissances, comme on peut le voir à travers l'amélioration progressive des exactitudes d'entraînement et de validation."
+#1    - "Le modèle commence avec des exactitudes relativement plus faibles, autour de $64%$, avant d'augmenter à plus de 89% et de terminer avec un score de 87% à la fin de l'entraînement."
+#1    - "Cela démontre la capacité raffinée du modèle à catégoriser correctement un ratio considérable de cas."
+#1  image_path : "../../images/class2.svg"
+#1  image_position: IMG_RIGHT
+#1
+#1
+#1- title: "T1"
+#1  subtitle_1: "t1"
+#1  paragraphs_1:
+#1    - "Pou"
+#1  image_path : "../../images/ch3_tab1.png"
+#1#
+#1#
+#1# - title: "T2"
+#1#   subtitle_1: "t2"
+#1#   paragraphs_1:
+#1#     - "Pou"
+#1#   image_path : "../../images/ch3_tab2.png"
+#1#
+#1#
+#1# - title: "Exemple de Deep "
+#1#   subtitle_1: "Relation entre "
+#1#   paragraphs_1:
+#1#     - "Pou"
+#1#   image_path : "../../images/structure_resnet.png"
+#1#
+#1#
+#1# - title: "Exemple de Deep le"
+#1#   subtitle_1: "Relation entre les réseaux "
+#1#   paragraphs_1:
+#1#     - "Pou"
+#1#   image_path : "../../images/resnet_model6.png"
