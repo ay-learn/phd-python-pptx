@@ -1,75 +1,172 @@
-- title: "Exemple de Deep learning dans la pratique"
-  subtitle_1: "Relation entre le"
-  paragraphs_1:
-    - par1 text_b
-    - par2 text_a
-  image_path: "../../images/3_nodules.png"
-
-
-- title: LE PROCESSUS DE CRÉATION D'UN IA MODEL
-  subtitle_1: La phase de prétraitement des données
-  paragraphs_1:
-    - comment L'utilisation de l'IA pour la détection et la classification
-      des nodules pulmonaires comporte deux parties essentielles.
-    - consiste a détecter un large ... de nodules avec une grande sensibilité,
-      mais elle génère des faux positifs. Ensuite La phase de dectection réduit
-      ces faux positifs.
-  image_path: "../../images/model2.png"
-
-- title: LE PROCESSUS DE CRÉATION D'UN IA MODEL
-  subtitle_2: La phase d'entraînement du modèle
-  paragraphs_2:
-    - L'entraînement de modèle sur les images des nodules ou des lésions,
-      c'est une essaye de model de modifier leur paramètres pour devenir capable de créer
-      certains motifs qui relève les caractéristique et information content
-      dans les images.
-
-    - Ensuite, en peut classer ces motifs en certaine classes.
-
-    - Dans notre cas en  parler sur la classification binaire, nous avons deux classes.
-      soit nodule, soit non-nodule.
-  image_path: "../../images/model2.png"
+#1- title: INTRODUCTION
+#1  paragraphs_1:
+#1    - Le deep learning ou l'apprentissage profond est une  méthode
+#1      d'apprentissage automatique qui permet à une machine d'apprendre à partir
+#1      des données en utilisant des réseaux de neurones artificielles.
+#1  image_path: "../../images/ais.png"
 #1
+#1- title: fonctionnement de deep learning
+#1  paragraphs_1:
+#1    - le fonctionnement de deep learning se base sur des réseaux de neurone
+#1      imitant le cerveau humain.
+#1  image_path: "../../images/fonctionement_y.png"
 #1
-#1- title: "LE PROCESSUS DE CRÉATION D'UN IA MODEL"
-#1  subtitle_3: "La phase de prédiction:"
+#1- title: application de deep learning
+#1  paragraphs_1:
+#1    - en plein essor depuis une dizaine d'années le deep learning utile dans
+#1      divers domaine
+#1  # image_path: "../../images/3_nodules.png"
+#1
+#1- title: RÉSEAUX DE NEURONES ET DEEP LEARNING
+#1  paragraphs_1:
+#1    - réseau de neurones; structure consiste d un ensemble (couche ) de briques
+#1      élémentaire (neurones ) effectuant chacune des opérations simple.
+#1    - couche d entrée
+#1    - couche de traitement
+#1    - couche de sortie
+#1  image_path: "../../images/reseuxActicvation.png"
+#1
+#1- title: mathématique; le calcule d'un neurones
+#1  paragraphs_1:
+#1    - pp
+#1  # image_path: "../../images/3_nodules.png"
+#1
+#1- title: image et deep learning
+#1  paragraphs_1:
+#1    - L'apprentissage profond est très efficace pour l'analyse des images soit
+#1      classification ou segmentation par 7 étapes à suivre;
+#1    - collecte des données
+#1    - pré traitement des données
+#1    - creation d'un modele de deep learning
+#1    - entrainement du modèle
+#1    - validation et ajustement
+#1    - test du modèle
+#1    - déploiement
+#1  image_path: "../../images/structure_resnet.png"
+#1
+#1- title: Exemple de Deep learning dans la pratique
+#1  subtitle_1: Relation entre le
+#1  paragraphs_1:
+#1    - texte par1_b
+#1    - texte par2_a
+#1  image_path: "../../images/3_nodules.png"
+#1
+#1- title: LE PROCESSUS DE CRÉATION D'UN MODÈLE IA
+#1  subtitle_1: La phase de prétraitement des données
+#1  paragraphs_1:
+#1    # - comment L'utilisation de l'IA pour la détection et la classification
+#1    #   des nodules pulmonaires comporte deux parties essentielles.
+#1    - Consiste à détecter un grand nombre de nodules avec une grande sensibilité,
+#1      mais cela génère des faux positifs. Ensuite, la phase de détection réduit ces faux positifs.
+#1    - Normalisation des nodules pour avoir la même taille, les mêmes canaux de couleur, etc.
+#1  image_path: "../../images/model2_a.png"
+#1
+#1- title: LE PROCESSUS DE CRÉATION D'UN MODÈLE IA
+#1  subtitle_2: La phase d'entraînement du modèle
+#1  paragraphs_2:
+#1    - L'entraînement du modèle sur des images de nodules ou de lésions, par exemple,
+#1      modifie les paramètres du modèle pour devenir capable de créer certains motifs
+#1      qui révèlent les caractéristiques et les informations contenues dans les images.
+#1    - Ensuite, on peut classer ces motifs en certaines classes. Dans notre cas, il s'agit
+#1      de la classification binaire, avec deux classes; nodule ou non-nodule.
+#1  image_path: "../../images/model2_b.png"
+#1
+#1- title: LE PROCESSUS DE CRÉATION D'UN MODÈLE IA
+#1  subtitle_3: La phase de prédiction
 #1  paragraphs_3:
-#1    - "L'image qui ente dans la phase de classification et qui peut avoir n'importe quel design ou form, cette image devient plus similaire à l'un des motifs sur lesquels le modèle a été entraîné pour la comprendre."
-#1  image_path: "../../images/model2.png"
+#1    - Lorsqu'une nouvelle image, quelle que soit sa conception ou sa forme, est
+#1      introduite dans le modèle, elle est convertie grâce aux couches de CNN pour
+#1      devenir plus similaire à l'un des motifs sur lesquels le modèle a été entraîné
+#1      pour la comprendre.
 #1
-#1- title: "RÉSULTAT ET DISCUSSION"
-#1  subtitle_1: "Model 1"
-#1  paragraphs_1:
-#1    - "En examinant les valeurs d'*exactitude* et d'*exactitude de validation* tout au long des étapes d'apprentissage, il est indiqué que le modèle acquiert des connaissances, comme on peut le voir à travers l'amélioration progressive des exactitudes d'entraînement et de validation."
-#1    - "Le modèle commence avec des exactitudes relativement plus faibles, autour de $64%$, avant d'augmenter à plus de 89% et de terminer avec un score de 87% à la fin de l'entraînement."
-#1    - "Cela démontre la capacité raffinée du modèle à catégoriser correctement un ratio considérable de cas."
-#1  image_path : "../../images/class2.svg"
-#1  image_position: IMG_RIGHT
-#1
-#1
-#1- title: "T1"
-#1  subtitle_1: "t1"
-#1  paragraphs_1:
-#1    - "Pou"
-#1  image_path : "../../images/ch3_tab1.png"
-#1#
-#1#
-#1# - title: "T2"
-#1#   subtitle_1: "t2"
-#1#   paragraphs_1:
-#1#     - "Pou"
-#1#   image_path : "../../images/ch3_tab2.png"
-#1#
-#1#
-#1# - title: "Exemple de Deep "
-#1#   subtitle_1: "Relation entre "
-#1#   paragraphs_1:
-#1#     - "Pou"
-#1#   image_path : "../../images/structure_resnet.png"
-#1#
-#1#
-#1# - title: "Exemple de Deep le"
-#1#   subtitle_1: "Relation entre les réseaux "
-#1#   paragraphs_1:
-#1#     - "Pou"
-#1#   image_path : "../../images/resnet_model6.png"
+#1    # - On commence par créer un modèle qui contient des paramètres aléatoires,
+#1    # et cela génère des motifs aléatoires. Cependant, grâce à l'entraînement
+#1    # sur des exemples réels bien traités, le modèle devient capable d'extraire
+#1    # de petites images contenant des motifs caractérisant les informations
+#1    # complexes des nodules. Ainsi, il réduit la complexité des images de
+#1    # grande dimension en des images plus petites, pouvant être classifiées
+#1    # dans certaines classes.
+#1  image_path: "../../images/model2_c.png"
+
+
+- title: MATÉRIEL ET MÉTHODE
+  # subtitle_1: "Les en jeu de donnée"
+  paragraphs_1:
+    - Les ressources utilisées dans notre étude comprenaient des scans CT et
+      des annotations provenant du dataset LIDC-IDRI, du dataset LUNA16 et
+      TRPMLN.
+    - Le dataset LIDC-IDRI est une base de données publique contenant 1018
+      scans thoraciques annotés par quatre radiologues experts. Chaque nodule
+      pulmonaire est décrit dans un fichier XML qui contient son
+      identifiant, ses caractéristiques, et sa région d'intérêt.
+    - Nous avons utilisé des ordinateurs équipés de GPUs stockés sur un site
+      Web de recherche appelé Kaggle pour effectuer nos analyses.
+  image_path: "../../images/martiel.png"
+
+- title: MATÉRIEL ET MÉTHODE.
+  subtitle_1: Les jeux de données LUNA16/TRPMLN.
+  paragraphs_1:
+    - Pour entraîner notres modèles de détection et de classification en utilisant
+      deux ensembles de données adaptés au Deep Learning, afin de faciliter
+      leur utilisation dans le Deep Learning, nous avons utilisé un
+      sous-ensemble de données appelé LUNA16 pour la détection des nodules, et
+      nous avons créé un sous-ensemble appelé TRPMLN pour classer les nodules
+      de haut risque de malignité.
+    - LUNA16 contient 6691 nodules annotés dans 888 scans thoraciques.
+    - TRPMLN contient 1568 nodules annotés dans 604 scans thoraciques, en
+      extrayant les nodules qui ont une moyenne de malignité égale à 3 ou plus
+      dans les annotations des quatre experts.
+
+
+- title: ARCHITECTURE
+  # subtitle_1: "Modèle 1"
+  paragraphs_1:
+    - nous avons expérimenté différentes combinaisons de couches et de filtres
+      pour trouver la meilleure architecture pour notre problème.
+    - Pour entraîner le modèle, on utiliser l'optimiseur Adam avec un taux
+      d'apprentissage de 0,001, et la fonction de perte s'appelle l'entropie
+      croisée binaire.
+  image_path: "../../images/architicture.png"
+
+- title: RÉSULTATS ET DISCUSSION
+  subtitle_1: "Modèle 1: détection des Nodules"
+  paragraphs_1:
+    - En examinant les valeurs de précision et de validation tout au long des
+      étapes d'apprentissage, on constate que le modèle acquiert des
+      connaissances, comme le montre l'amélioration progressive des précisions
+      d'entraînement et de validation.
+    - Le modèle commence avec des précisions relativement plus faibles, autour
+      de 64%, avant d'augmenter à plus de 89% et de terminer avec un score de
+      87% à la fin de l'entraînement.
+    - Cela démontre la capacité affinée du modèle à classer correctement un
+      pourcentage considérable de cas.
+  image_path: "../../images/class2.jpg"
+  image_position: IMG_RIGHT
+
+
+- title: "T1"
+  subtitle_1: "t1"
+  paragraphs_1:
+    - "Pou"
+  image_path : "../../images/ch3_tab1.png"
+
+
+- title: "T2"
+  subtitle_1: "t2"
+  paragraphs_1:
+    - "Pou"
+  image_path : "../../images/ch3_tab2.png"
+
+
+- title: "Exemple de Deep "
+  subtitle_1: "Relation entre "
+  paragraphs_1:
+    - "Pou"
+  image_path : "../../images/structure_resnet.png"
+
+
+- title: "Exemple de Deep le"
+  subtitle_1: "Relation entre les réseaux "
+  paragraphs_1:
+    - "Pou"
+  image_path : "../../images/resnet_model6.png"
