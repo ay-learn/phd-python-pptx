@@ -20,7 +20,7 @@ from pptx.oxml.xmlchemy import OxmlElement
 from pptx.util import Inches
 from pptx.util import Pt
 
-# import PIL
+from PIL import Image
 
 SHRINK_NONE = MSO_AUTO_SIZE.NONE
 SHRINK_TEXT = MSO_AUTO_SIZE.SHAPE_TO_FIT_TEXT
@@ -50,6 +50,18 @@ BLACK = RGBColor(0, 0, 0)
 IMG_BUTTOM = "IMG_BUTTOM"
 IMG_RIGHT = "IMG_RIGHT"
 
+
+def get_image_dpi(image_path):
+    try:
+        with Image.open(image_path) as img:
+            dpi = img.info.get("dpi")
+            print("image_path", image_path, "DPI: ", dpi)
+            if dpi:
+                return dpi
+            else:
+                return None
+    except Exception as e:
+        return None
 
 def generate_random_string(length=6):
     letters = string.ascii_lowercase
@@ -215,7 +227,7 @@ class Paragraph(TextElement):
 # font.bold = True
 
 
-def get_img_width(image_path):
+def get_img_width(image_path, image_position):
     if image_path is None or image_path == "":
         print(f"image_path={image_path}", file=sys.stderr)
         return Inches(0), image_path
@@ -223,9 +235,12 @@ def get_img_width(image_path):
         print(f"File {image_path} does not found", file=sys.stderr)
         return Inches(0), image_path
 
+    if image_position is None:
+        image_position == IMG_BUTTOM
+
     if image_path.lower().endswith(".svg"):
         rand_name = generate_random_string(6)
-        output_path = f"/tmp/{rand_name}.png"
+        output_path = f"./build/{rand_name}.png"
         cairosvg.svg2png(url=image_path, write_to=output_path)
         image_path = output_path
 
@@ -243,12 +258,21 @@ def get_img_width(image_path):
     # image = Image.open(image_path)
     # image_width, image_height = image.size
 
-    image_width_inches = image_width / 72
-    image_height_inches = image_height / 72
+    xy = get_image_dpi(image_path)
+    if xy is not None:
+        dpi_x, dpi_y = xy[0], xy[1]
+    else:
+        dpi_x, dpi_y = 100, 100
+    image_width_inches = image_width / dpi_x
+    image_height_inches = image_height / dpi_y
 
     width = Inches(4) * image_width_inches / image_height_inches
-    if width > Inches(5):
-        width = Inches(5)
+    if image_position == IMG_RIGHT:
+        if width > Inches(5):
+            width = Inches(5)
+    else:
+        if width > Inches(14):
+            width = Inches(14)
 
     return width, image_path
 
@@ -362,7 +386,7 @@ class Slide:
 
 
         height = Inches(4)
-        width, image_path = get_img_width(image_path)
+        width, image_path = get_img_width(image_path, image_position)
 
         if image_position == IMG_RIGHT:
             left = Inches(16) - width
@@ -426,12 +450,23 @@ def add_slide_from_data(slide_data):
     image = slide_data.get("image_path", "")
     image_position = slide_data.get("image_position", IMG_BUTTOM)
 
-    img_width, _ = get_img_width(image)
+    img_width, _ = get_img_width(image, image_position)
 
-    par_width = int(Inches(15) - img_width)
-    # print("img_width:", img_width, end='')
-    # print("\tpar_width:", par_width)
+    if image_position == IMG_RIGHT:
+        par_width = int(Inches(15) - img_width)
+        if par_width < 0:
+            print("img_width is bigger")
+            par_width = 0
+        print("IMG_RIGHT: 15 Inches(", Inches(15),") - img_width(",img_width,")",  end='')
+        print("\tpar_width:", par_width)
+
+    else:
+        par_width = Inches(15)
+
+
     # '''
+    slide.add_image(image_path=image, image_position=image_position)
+
     if title:
         (
             slide.add_title(title)
@@ -546,8 +581,6 @@ def add_slide_from_data(slide_data):
                 font_name="Arial",
             )
 
-    # TODO not trow error if not has an image
-    slide.add_image(image_path=image, image_position=image_position)
 
     # '''
     return slide
