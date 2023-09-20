@@ -465,7 +465,6 @@ def add_slide_from_data(slide_data):
 
 
     # '''
-    slide.add_image(image_path=image, image_position=image_position)
 
     if title:
         (
@@ -582,6 +581,7 @@ def add_slide_from_data(slide_data):
             )
 
 
+    slide.add_image(image_path=image, image_position=image_position)
     # '''
     return slide
 
