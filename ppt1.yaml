@@ -90,7 +90,7 @@
 
 
 - title: MATÉRIEL ET MÉTHODE
-  # subtitle_1: "Les en jeu de donnée"
+  subtitle_1: "Les en jeu de donnée"
   paragraphs_1:
     - Les ressources utilisées dans notre étude comprenaient des scans CT et
       des annotations provenant du dataset LIDC-IDRI, du dataset LUNA16 et
@@ -103,70 +103,71 @@
       Web de recherche appelé Kaggle pour effectuer nos analyses.
   image_path: "../../images/martiel.png"
 
-- title: MATÉRIEL ET MÉTHODE.
-  subtitle_1: Les jeux de données LUNA16/TRPMLN.
-  paragraphs_1:
-    - Pour entraîner notres modèles de détection et de classification en utilisant
-      deux ensembles de données adaptés au Deep Learning, afin de faciliter
-      leur utilisation dans le Deep Learning, nous avons utilisé un
-      sous-ensemble de données appelé LUNA16 pour la détection des nodules, et
-      nous avons créé un sous-ensemble appelé TRPMLN pour classer les nodules
-      de haut risque de malignité.
-    - LUNA16 contient 6691 nodules annotés dans 888 scans thoraciques.
-    - TRPMLN contient 1568 nodules annotés dans 604 scans thoraciques, en
-      extrayant les nodules qui ont une moyenne de malignité égale à 3 ou plus
-      dans les annotations des quatre experts.
-
-
-- title: ARCHITECTURE
-  # subtitle_1: "Modèle 1"
-  paragraphs_1:
-    - nous avons expérimenté différentes combinaisons de couches et de filtres
-      pour trouver la meilleure architecture pour notre problème.
-    - Pour entraîner le modèle, on utiliser l'optimiseur Adam avec un taux
-      d'apprentissage de 0,001, et la fonction de perte s'appelle l'entropie
-      croisée binaire.
-  image_path: "../../images/architicture.png"
-
-- title: RÉSULTATS ET DISCUSSION
-  subtitle_1: "Modèle 1: détection des Nodules"
-  paragraphs_1:
-    - En examinant les valeurs de précision et de validation tout au long des
-      étapes d'apprentissage, on constate que le modèle acquiert des
-      connaissances, comme le montre l'amélioration progressive des précisions
-      d'entraînement et de validation.
-    - Le modèle commence avec des précisions relativement plus faibles, autour
-      de 64%, avant d'augmenter à plus de 89% et de terminer avec un score de
-      87% à la fin de l'entraînement.
-    - Cela démontre la capacité affinée du modèle à classer correctement un
-      pourcentage considérable de cas.
-  image_path: "../../images/class2.jpg"
-  image_position: IMG_RIGHT
-
-
-- title: "T1"
-  subtitle_1: "t1"
-  paragraphs_1:
-    - "Pou"
-  image_path : "../../images/ch3_tab1.png"
-
-
-- title: "T2"
-  subtitle_1: "t2"
-  paragraphs_1:
-    - "Pou"
-  image_path : "../../images/ch3_tab2.png"
-
-
-- title: "Exemple de Deep "
-  subtitle_1: "Relation entre "
-  paragraphs_1:
-    - "Pou"
-  image_path : "../../images/structure_resnet.png"
-
-
-- title: "Exemple de Deep le"
-  subtitle_1: "Relation entre les réseaux "
-  paragraphs_1:
-    - "Pou"
-  image_path : "../../images/resnet_model6.png"
+#2- title: MATÉRIEL ET MÉTHODE.
+#2  subtitle_1: Les jeux de données LUNA16/TRPMLN.
+#2  paragraphs_1:
+#2    - Pour entraîner notres modèles de détection et de classification en utilisant
+#2      deux ensembles de données adaptés au Deep Learning, afin de faciliter
+#2      leur utilisation dans le Deep Learning, nous avons utilisé un
+#2      sous-ensemble de données appelé LUNA16 pour la détection des nodules, et
+#2      nous avons créé un sous-ensemble appelé TRPMLN pour classer les nodules
+#2      de haut risque de malignité.
+#2    - LUNA16 contient 6691 nodules annotés dans 888 scans thoraciques.
+#2    - TRPMLN contient 1568 nodules annotés dans 604 scans thoraciques, en
+#2      extrayant les nodules qui ont une moyenne de malignité égale à 3 ou plus
+#2      dans les annotations des quatre experts.
+#2
+#2
+#2- title: ARCHITECTURE
+#2  # subtitle_1: "Modèle 1"
+#2  paragraphs_1:
+#2    - nous avons expérimenté différentes combinaisons de couches et de filtres
+#2      pour trouver la meilleure architecture pour notre problème.
+#2    - Pour entraîner le modèle, on utiliser l'optimiseur Adam avec un taux
+#2      d'apprentissage de 0,001, et la fonction de perte s'appelle l'entropie
+#2      croisée binaire.
+#2  image_path: "../../images/architicture.png"
+#2
+#2- title: RÉSULTATS ET DISCUSSION
+#2  # Résultat d'entraînement de detection.
+#2  subtitle_1: "Modèle 1: détection des Nodules"
+#2  paragraphs_1:
+#2    - En examinant les valeurs de précision et de validation tout au long des
+#2      étapes d'apprentissage, on constate que le modèle acquiert des
+#2      connaissances, comme le montre l'amélioration progressive des précisions
+#2      d'entraînement et de validation.
+#2    - Le modèle commence avec des précisions relativement plus faibles, autour
+#2      de 64%, avant d'augmenter à plus de 89% et de terminer avec un score de
+#2      87% à la fin de l'entraînement.
+#2    - Cela démontre la capacité affinée du modèle à classer correctement un
+#2      pourcentage considérable de cas.
+#2  image_path: "../../images/class2.jpg"
+#2  image_position: IMG_RIGHT
+#2
+#2
+#2- title: "T1"
+#2  subtitle_1: "t1"
+#2  paragraphs_1:
+#2    - "Pou"
+#2  image_path : "../../images/ch3_tab1.png"
+#2
+#2
+#2- title: "T2"
+#2  subtitle_1: "t2"
+#2  paragraphs_1:
+#2    - "Pou"
+#2  image_path : "../../images/ch3_tab2.png"
+#2
+#2
+#2- title: "Exemple de Deep "
+#2  subtitle_1: "Relation entre "
+#2  paragraphs_1:
+#2    - "Pou"
+#2  image_path : "../../images/structure_resnet.png"
+#2
+#2
+#2- title: "Exemple de Deep le"
+#2  subtitle_1: "Relation entre les réseaux "
+#2  paragraphs_1:
+#2    - "Pou"
+#2  image_path : "../../images/resnet_model6.png"
