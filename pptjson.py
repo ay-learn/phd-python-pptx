@@ -82,7 +82,7 @@ class TextElement:
         return self
 
     def height(self, inches):
-        self.shape.height = Inches(inches)
+        self.shape.height = inches
         return self
 
     def X(self, inches):
@@ -391,16 +391,19 @@ class Slide:
         if image_position == IMG_RIGHT:
             left = Inches(16) - width
             top = Inches(3)
+
+            self.shapes.add_picture(
+                image_path, left=left, top=top, width=width
+            )
+
         else:
             left = (Inches(16) - width) / 2
             top = Inches(4.30)
 
-        try:
             self.shapes.add_picture(
-                image_path, left=left, top=top, width=width, height=height
+                image_path, left=left, top=top, width=width,
+                height=height
             )
-        except FileNotFoundError as e:
-            print(f"File {image_path} does not found:{e}", file=sys.stderr)
         return self
 
     def save(self, path):
@@ -472,7 +475,7 @@ def add_slide_from_data(slide_data):
             .X(0.5)
             .Y(0.5)
             .width(Inches(15))
-            .height(4)
+            .height(Inches(4))
             .upper()
             .color(RED)
             .bold()
@@ -488,7 +491,7 @@ def add_slide_from_data(slide_data):
             slide.add_subtitle_1(subtitle_1)
             .X(2)
             .Y(1)
-            .width(14)
+            .width(Inches(14))
             .bold()
             .color(GREEN)
             .font_size(36)
@@ -503,7 +506,7 @@ def add_slide_from_data(slide_data):
             slide.add_subtitle_2(subtitle_2)
             .X(2)
             .Y(1)
-            .width(14)
+            .width(Inches(14))
             .bold()
             .color(GREEN)
             .font_size(36)
@@ -517,7 +520,7 @@ def add_slide_from_data(slide_data):
             slide.add_subtitle_3(subtitle_3)
             .X(2)
             .Y(1)
-            .width(14)
+            .width(Inches(14))
             .bold()
             .color(GREEN)
             .font_size(36)
