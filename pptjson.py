@@ -442,7 +442,7 @@ def add_slide_from_data(slide_data):
     title = slide_data.get("title", "")
     subtitle_1 = slide_data.get("subtitle_1", "")
     subtitle_2 = slide_data.get("subtitle_2", "")
-    page = slide_data.get("subtitle_3", "")
+    page = slide_data.get("page", "")
     paragraphs_1 = slide_data.get("paragraphs_1", [])
     paragraphs_2 = slide_data.get("paragraphs_2", [])
     paragraphs_3 = slide_data.get("paragraphs_3", [])
