@@ -1,117 +1,128 @@
+# ---------------------------------------------------------
 - title: INTRODUCTION GÉNÉRALE
   paragraphs_1:
     - Le cancer du poumon est une cause majeure de décès par cancer.
     - Les scanners thoraciques peuvent repérer des nodules pulmonaires, mais les algorithmes de détection comportent deux étapes; une recherche sensible générant de nombreux faux positifs, suivie d'une réduction de ces faux positifs grâce à des caractéristiques améliorées.
     - Cette étude a utilisé un réseau neuronal convolutionnel sur des scanners thoraciques des patients, montrant une performance de détection et classification de nodules.
-  page: page 1/20
+  page: page 1/24
 
-- title: ANATOMIE DES NODULES PULMONAIRE
+# ---------------------------------------------------------
+
+- title: ANATOMIE DES NODULES PULMONAIRES
   subtitle_1: introduction
   paragraphs_1:
     - Les nodules pulmonaires sont des masses anormales qui se forment dans les poumons.
     - Bien qu'ils puissent être bénins, ils peuvent aussi être le signe d'un cancer du poumon.
     - Les nodules pulmonaires sont souvent détectés lors de l'imagerie médicale, comme une radiographie pulmonaire ou un scanner.
   image_path: "../../images/nod2.png"
-  page: page 2/20
+  page: page 2/24
 
-- title: TYPE DES NODULES PULMONAIRES
+# ---------------------------------------------------------
+#
+- title: TYPES DES NODULES PULMONAIRES
   subtitle_1:
   paragraphs_1:
-    - Les nodules pulmonaires sont des petites masses arrondies dans les poumons et détectés par des examens d'imageries médicales (IRM, CT SCAN, …) ils existent plusieurs types;
-    - néoplasique
-    - inflammatoire
-    - Vasculaire
-    - Ces nodules peuvent naitre de diverses causes comme les infections, le tabac etc..
-  page: page 2/20
+    - Les nodules pulmonaires sont de petites masses arrondies dans les poumons et détectés par des examens d'imagerie médicale (IRM, CT SCAN, …) il existe plusieurs types;
+    - néoplasiques
+    - inflammatoires
+    - Vasculaires
+    - Ces nodules peuvent naître de diverses causes comme les infections, le tabac etc..
+  page: page 2/24
+
+# ---------------------------------------------------------
 
 - title: Anatomie du poumon
   paragraphs_1:
-    - L'anatomie pulmonaire concerne la structure des poumons, essentiels à l'échange de gaz vitaux.
+    - L'anatomie pulmonaire concerne la structure des poumons, essentielle à l'échange de gaz vitaux.
     - Ils se trouvent dans le thorax, séparés par le médiastin.
   image_path: "../../images/poum_str.png"
-  page: page 3/20
+  page: page 3/24
 
 - title: Morphologie interne et externe et vascularisation
   # paragraphs_1:
   #   -
-  page: page 4/20
+  page: page 4/24
 
+# ---------------------------------------------------------
 
-- title: Causes, stade du cancer de poumon.
+- title: Causes, stades du cancer de poumon.
   paragraphs_1:
-    -  Le cancer du poumon, maladie qui voit des cellules anormales croître de manière incontrôlée dans le tissu pulmonaire, découle principalement de l’exposition à la cigarette, le tabagisme passif, l’exposition professionnelle à des substances cancérigènes, il existe 4 stades de cancer du poumon ;
+    -  Le cancer du poumon, une maladie qui voit des cellules anormales croître de manière incontrôlée dans le tissu pulmonaire, découle principalement de l’exposition à la cigarette, le tabagisme passif, l’exposition professionnelle à des substances cancérigènes, il existe 4 stades du cancer du poumon ;
     - Stade I ; tumeur limitée au poumon, sans atteinte des ganglions lymphatiques ni métastases à distance.
     - Stade II ; la tumeur a envahi les ganglions lymphatiques proches du poumon touché ou a infiltré les structures avoisinantes.
     - Stade III ; la tumeur est plus avancée localement et a envahi plus de ganglions lymphatiques ou de structures adjacentes.
-    - Stade IV ; le cancer a migré à d’autres parties du corps, souvent éloignées des poumons.
+    - Stade IV ; le cancer a migré vers d’autres parties du corps, souvent éloignées des poumons.
   image_path: "../../images/stad_du_cancer.png"
-  page: page 5/20
+  page: page 5/24
+
+# ---------------------------------------------------------
 
 - title: Conclusion
   paragraphs_1:
     - Ce chapitre explore en détail l'anatomie des nodules pulmonaires, leur importance dans la détection précoce du cancer, et les options de traitement.
     - L'utilisation de l'Intelligence Artificielle de type Deep-Learning avec l'ensemble de données LIDC-IDRI permet de détecter et classifier les nodules pulmonaires avec précision, améliorant ainsi les chances de survie des patients.
-  page: page 6/20
-# --------
+  page: page 6/24
+
+# ---------------------------------------------------------
+
 - title: INTRODUCTION
   paragraphs_1:
     - Le deep learning ou l'apprentissage profond est une  méthode
       d'apprentissage automatique qui permet à une machine d'apprendre à partir
-      des données en utilisant des réseaux de neurones artificielles.
+      des données en utilisant des réseaux de neurones artificiels.
   image_path: "../../images/ais.png"
-  page: page 7/20
+  page: page 7/24
 
-- title: fonctionnement de deep learning
+- title: FONCTIONNEMENT DU DEEP LEARNING
   paragraphs_1:
-    - le fonctionnement de deep learning se base sur des réseaux de neurone
+    - Le fonctionnement du Deep-Learning est basé sur des réseaux de neurones
       imitant le cerveau humain.
   image_path: "../../images/fonctionement_y.png"
-  page: page 8/20
+  page: page 8/24
 
-- title: application de deep learning
+- title: APPLICATIONS DE DEEP LEARNING
   paragraphs_1:
-    - en plein essor depuis une dizaine d'années le deep learning utile dans
-      divers domaine
-  # image_path: "../../images/3_nodules.png"
-  page: page 9/20
+    - En plein essor depuis une dizaine d'années, le Deep-Learning est utile
+      dans divers domaines.
+  page: page 9/24
+
+# ---------------------------------------------------------
 
 - title: RÉSEAUX DE NEURONES ET DEEP LEARNING
   paragraphs_1:
-    - réseau de neurones; structure consiste d un ensemble (couche ) de briques
-      élémentaire (neurones ) effectuant chacune des opérations simple.
-    - couche d entrée
-    - couche de traitement
-    - couche de sortie
+    - Un réseau de neurones est une structure consistant en un ensemble
+      (couche) de briques élémentaires (neurones) effectuant chacune des
+      opérations simples.
+    - Couche d'entrée
+    - Couche de traitement
+    - Couche de sortie
   image_path: "../../images/reseuxActicvation.png"
-  page: page 10/20
+  page: page 10/24
 
-- title: mathématique; le calcule d'un neurones
-  paragraphs_1:
-    - pp
-  # image_path: "../../images/3_nodules.png"
-  page: page 11/20
+# ---------------------------------------------------------
 
-- title: image et deep learning
+- title: IMAGE ET DEEP LEARNING
   paragraphs_1:
-    - L'apprentissage profond est très efficace pour l'analyse des images soit
-      classification ou segmentation par 7 étapes à suivre;
-    - collecte des données
-    - pré traitement des données
-    - creation d'un modele de deep learning
-    - entrainement du modèle
-    - validation et ajustement
-    - test du modèle
-    - déploiement
+    - L'apprentissage profond est très efficace pour l'analyse des images,
+      que soit pour la classification ou la segmentation, en suivant 7 étapes;
+    - Collecte des données
+    - Prétraitement des données
+    - Création d'un modèle de deep learning
+    - Entraînement du modèle
+    - Validation et ajustement
+    - Test du modèle
+    - Déploiement
   image_path: "../../images/structure_resnet.png"
-  page: page 12/20
+  page: page 12/24
 
-- title: Exemple de Deep learning dans la pratique
-  subtitle_1: Relation entre le
+# ---------------------------------------------------------
+
+- title: CONCLUSION
   paragraphs_1:
-    - texte par1_b
-    - texte par2_a
-  image_path: "../../images/3_nodules.png"
+    - conclusions
   page: page 13/20
+
+# ---------------------------------------------------------
 
 - title: LE PROCESSUS DE CRÉATION D'UN MODÈLE IA
   subtitle_1: La phase de prétraitement des données
@@ -122,7 +133,9 @@
       mais cela génère des faux positifs. Ensuite, la phase de détection réduit ces faux positifs.
     - Normalisation des nodules pour avoir la même taille, les mêmes canaux de couleur, etc.
   image_path: "../../images/model2_a.png"
-  page: page 14/20
+  page: page 14/24
+
+# ---------------------------------------------------------
 
 - title: LE PROCESSUS DE CRÉATION D'UN MODÈLE IA
   subtitle_1: La phase d'entraînement du modèle
@@ -133,7 +146,9 @@
     - Ensuite, on peut classer ces motifs en certaines classes. Dans notre cas, il s'agit
       de la classification binaire, avec deux classes; nodule ou non-nodule.
   image_path: "../../images/model2_b.png"
-  page: page 15/20
+  page: page 15/24
+
+# ---------------------------------------------------------
 
 - title: LE PROCESSUS DE CRÉATION D'UN MODÈLE IA
   subtitle_1: La phase de prédiction
@@ -151,7 +166,9 @@
     # grande dimension en des images plus petites, pouvant être classifiées
     # dans certaines classes.
   image_path: "../../images/model2_c.png"
-  page: page 16/20
+  page: page 16/24
+
+# ---------------------------------------------------------
 
 - title: MATÉRIEL ET MÉTHODE
   subtitle_1: "Les en jeu de donnée"
@@ -175,7 +192,9 @@
     - Nous avons utilisé des ordinateurs équipés de GPUs stockés sur un site
       Web de recherche appelé Kaggle pour effectuer nos analyses.
   image_path: "../../images/martiel.png"
-  page: page 17/20
+  page: page 17/24
+
+# ---------------------------------------------------------
 
 - title: MATÉRIEL ET MÉTHODE.
   subtitle_1: Les jeux de données LUNA16/TRPMLN.
@@ -191,7 +210,9 @@
       extrayant les nodules qui ont une moyenne de malignité égale à 3 ou plus
       dans les annotations des quatre experts.
   image_path: "../../images/type_nodules.png"
-  page: page 18/20
+  page: page 18/24
+
+# ---------------------------------------------------------
 
 - title: ARCHITECTURE
   subtitle_1: "CNN & ResNET"
@@ -204,7 +225,9 @@
       d'apprentissage de 0,001, et la fonction de perte s'appelle l'entropie
       croisée binaire.
   image_path: "../../images/architicture.png"
-  page: page 19/20
+  page: page 19/24
+
+# ---------------------------------------------------------
 
 - title: RÉSULTATS DE MODEL DE DÉTECTION
   subtitle_1: "Résultat d'entraînement"
@@ -263,7 +286,9 @@
     #   qu'il n'a jamais vus.
   image_path: "../../images/class2.jpg"
   image_position: IMG_RIGHT
-  page: page 20/20
+  page: page 20/24
+
+# ---------------------------------------------------------
 
 - title: RÉSULTATS DE MODÈLE DE DÉTECTION
   subtitle_1: "Matrice de confusion"
@@ -274,8 +299,9 @@
     # - Pour visualiser la signification de ces nombres, on peut utiliser le
     # diagramme de Sankey.
   image_path : "../../images/ch3_tab1.png"
+  page: page 21/24
 
-  page: page 21/20
+# ---------------------------------------------------------
 
 - title: RÉSULTATS DE MODÈLE DE DÉTECTION
   subtitle_1: "Diagrame de Sankey pour detection"
@@ -289,7 +315,9 @@
     #   les évaluer et les comparer avec d'autres modèles qui utilisent des
     #   nombres différents de nodules de test.
   image_path : "../../images/sankey_diagram_1.png"
-  page: page 22/20
+  page: page 22/24
+
+# ---------------------------------------------------------
 
 - title: RÉSULTATS DE MODÈLE DE DÉTECTION
   subtitle_1: Métriques d'évaluation
@@ -304,7 +332,9 @@
       F_1-Score   = (2 VP)/(2VP + FP + FN)
   image_path : "../../images/ch3_tab2.png"
   image_position: IMG_RIGHT
-  page: page 23/20
+  page: page 23/24
+
+# ---------------------------------------------------------
 
 - title: DISCUSSION DE MODÈLE DE DÉTECTION
   subtitle_1: Overfitting
@@ -323,7 +353,9 @@
       de précision, de sensibilité et de "F1-score".
   image_path : "../../images/ch3_tab6.png"
   image_position: IMG_RIGHT
-  page: page 24/20
+  page: page 24/24
+
+# ---------------------------------------------------------
 
 - title: MODÈLE DE CLASSIFICATION DES NODULE DE HAUT RISQUE DE MALIGNETE
   # subtitle_1: Overfitting
@@ -342,25 +374,6 @@
   #     de précision, de sensibilité et de "F1-score".
   image_path : "../../images/ch3_tab7.png"
   # image_position: IMG_RIGHT
-  page: page 24/20
+  page: page 24/24
 
-#3- title: "T2"
-#3  subtitle_1: "t2"
-#3  paragraphs_1:
-#3    - "Pou"
-#3  image_path : "../../images/ch3_tab2.png"
-#3  page: page 1/20
-
-#3- title: "Exemple de Deep "
-#3  subtitle_1: "Relation entre "
-#3  paragraphs_1:
-#3    - "Pou"
-#3  image_path : "../../images/structure_resnet.png"
-#3  page: page 1/20
-
-#3- title: "Exemple de Deep le"
-#3  subtitle_1: "Relation entre les réseaux "
-#3  paragraphs_1:
-#3    - "Pou"
-#3  image_path : "../../images/resnet_model6.png"
-#3  page: page 1/20
+# ---------------------------------------------------------
