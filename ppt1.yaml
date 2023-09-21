@@ -1,104 +1,157 @@
-#1  page: page 1/20
+- title: INTRODUCTION GÉNÉRALE
+  paragraphs_1:
+    - Le cancer du poumon est une cause majeure de décès par cancer.
+    - Les scanners thoraciques peuvent repérer des nodules pulmonaires, mais les algorithmes de détection comportent deux étapes; une recherche sensible générant de nombreux faux positifs, suivie d'une réduction de ces faux positifs grâce à des caractéristiques améliorées.
+    - Cette étude a utilisé un réseau neuronal convolutionnel sur des scanners thoraciques des patients, montrant une performance de détection et classification de nodules.
+  page: page 1/20
 
-#1- title: INTRODUCTION
-#1  paragraphs_1:
-#1    - Le deep learning ou l'apprentissage profond est une  méthode
-#1      d'apprentissage automatique qui permet à une machine d'apprendre à partir
-#1      des données en utilisant des réseaux de neurones artificielles.
-#1  image_path: "../../images/ais.png"
-#1  page: page 1/20
+- title: ANATOMIE DES NODULES PULMONAIRE
+  subtitle_1: introduction
+  paragraphs_1:
+    - Les nodules pulmonaires sont des masses anormales qui se forment dans les poumons.
+    - Bien qu'ils puissent être bénins, ils peuvent aussi être le signe d'un cancer du poumon.
+    - Les nodules pulmonaires sont souvent détectés lors de l'imagerie médicale, comme une radiographie pulmonaire ou un scanner.
+  image_path: "../../images/nod2.png"
+  page: page 2/20
 
-#1- title: fonctionnement de deep learning
-#1  paragraphs_1:
-#1    - le fonctionnement de deep learning se base sur des réseaux de neurone
-#1      imitant le cerveau humain.
-#1  image_path: "../../images/fonctionement_y.png"
-#1  page: page 1/20
+- title: TYPE DES NODULES PULMONAIRES
+  subtitle_1:
+  paragraphs_1:
+    - Les nodules pulmonaires sont des petites masses arrondies dans les poumons et détectés par des examens d'imageries médicales (IRM, CT SCAN, …) ils existent plusieurs types;
+    - néoplasique
+    - inflammatoire
+    - Vasculaire
+    - Ces nodules peuvent naitre de diverses causes comme les infections, le tabac etc..
+  page: page 2/20
 
-#1- title: application de deep learning
-#1  paragraphs_1:
-#1    - en plein essor depuis une dizaine d'années le deep learning utile dans
-#1      divers domaine
-#1  # image_path: "../../images/3_nodules.png"
-#1  page: page 1/20
+- title: Anatomie du poumon
+  paragraphs_1:
+    - L'anatomie pulmonaire concerne la structure des poumons, essentiels à l'échange de gaz vitaux.
+    - Ils se trouvent dans le thorax, séparés par le médiastin.
+  image_path: "../../images/poum_str.png"
+  page: page 3/20
 
-#1- title: RÉSEAUX DE NEURONES ET DEEP LEARNING
-#1  paragraphs_1:
-#1    - réseau de neurones; structure consiste d un ensemble (couche ) de briques
-#1      élémentaire (neurones ) effectuant chacune des opérations simple.
-#1    - couche d entrée
-#1    - couche de traitement
-#1    - couche de sortie
-#1  image_path: "../../images/reseuxActicvation.png"
-#1  page: page 1/20
+- title: Morphologie interne et externe et vascularisation
+  # paragraphs_1:
+  #   -
+  page: page 4/20
 
-#1- title: mathématique; le calcule d'un neurones
-#1  paragraphs_1:
-#1    - pp
-#1  # image_path: "../../images/3_nodules.png"
-#1  page: page 1/20
 
-#1- title: image et deep learning
-#1  paragraphs_1:
-#1    - L'apprentissage profond est très efficace pour l'analyse des images soit
-#1      classification ou segmentation par 7 étapes à suivre;
-#1    - collecte des données
-#1    - pré traitement des données
-#1    - creation d'un modele de deep learning
-#1    - entrainement du modèle
-#1    - validation et ajustement
-#1    - test du modèle
-#1    - déploiement
-#1  image_path: "../../images/structure_resnet.png"
-#1  page: page 1/20
+- title: Causes, stade du cancer de poumon.
+  paragraphs_1:
+    -  Le cancer du poumon, maladie qui voit des cellules anormales croître de manière incontrôlée dans le tissu pulmonaire, découle principalement de l’exposition à la cigarette, le tabagisme passif, l’exposition professionnelle à des substances cancérigènes, il existe 4 stades de cancer du poumon ;
+    - Stade I ; tumeur limitée au poumon, sans atteinte des ganglions lymphatiques ni métastases à distance.
+    - Stade II ; la tumeur a envahi les ganglions lymphatiques proches du poumon touché ou a infiltré les structures avoisinantes.
+    - Stade III ; la tumeur est plus avancée localement et a envahi plus de ganglions lymphatiques ou de structures adjacentes.
+    - Stade IV ; le cancer a migré à d’autres parties du corps, souvent éloignées des poumons.
+  image_path: "../../images/stad_du_cancer.png"
+  page: page 5/20
 
-#1- title: Exemple de Deep learning dans la pratique
-#1  subtitle_1: Relation entre le
-#1  paragraphs_1:
-#1    - texte par1_b
-#1    - texte par2_a
-#1  image_path: "../../images/3_nodules.png"
-#1  page: page 1/20
+- title: Conclusion
+  paragraphs_1:
+    - Ce chapitre explore en détail l'anatomie des nodules pulmonaires, leur importance dans la détection précoce du cancer, et les options de traitement.
+    - L'utilisation de l'Intelligence Artificielle de type Deep-Learning avec l'ensemble de données LIDC-IDRI permet de détecter et classifier les nodules pulmonaires avec précision, améliorant ainsi les chances de survie des patients.
+  page: page 6/20
+# --------
+- title: INTRODUCTION
+  paragraphs_1:
+    - Le deep learning ou l'apprentissage profond est une  méthode
+      d'apprentissage automatique qui permet à une machine d'apprendre à partir
+      des données en utilisant des réseaux de neurones artificielles.
+  image_path: "../../images/ais.png"
+  page: page 7/20
 
-#1- title: LE PROCESSUS DE CRÉATION D'UN MODÈLE IA
-#1  subtitle_1: La phase de prétraitement des données
-#1  paragraphs_1:
-#1    # - comment L'utilisation de l'IA pour la détection et la classification
-#1    #   des nodules pulmonaires comporte deux parties essentielles.
-#1    - Consiste à détecter un grand nombre de nodules avec une grande sensibilité,
-#1      mais cela génère des faux positifs. Ensuite, la phase de détection réduit ces faux positifs.
-#1    - Normalisation des nodules pour avoir la même taille, les mêmes canaux de couleur, etc.
-#1  image_path: "../../images/model2_a.png"
-#1  page: page 1/20
+- title: fonctionnement de deep learning
+  paragraphs_1:
+    - le fonctionnement de deep learning se base sur des réseaux de neurone
+      imitant le cerveau humain.
+  image_path: "../../images/fonctionement_y.png"
+  page: page 8/20
 
-#1- title: LE PROCESSUS DE CRÉATION D'UN MODÈLE IA
-#1  subtitle_2: La phase d'entraînement du modèle
-#1  paragraphs_2:
-#1    - L'entraînement du modèle sur des images de nodules ou de lésions, par exemple,
-#1      modifie les paramètres du modèle pour devenir capable de créer certains motifs
-#1      qui révèlent les caractéristiques et les informations contenues dans les images.
-#1    - Ensuite, on peut classer ces motifs en certaines classes. Dans notre cas, il s'agit
-#1      de la classification binaire, avec deux classes; nodule ou non-nodule.
-#1  image_path: "../../images/model2_b.png"
-#1  page: page 1/20
+- title: application de deep learning
+  paragraphs_1:
+    - en plein essor depuis une dizaine d'années le deep learning utile dans
+      divers domaine
+  # image_path: "../../images/3_nodules.png"
+  page: page 9/20
 
-#1- title: LE PROCESSUS DE CRÉATION D'UN MODÈLE IA
-#1  page: La phase de prédiction
-#1  paragraphs_3:
-#1    - Lorsqu'une nouvelle image, quelle que soit sa conception ou sa forme, est
-#1      introduite dans le modèle, elle est convertie grâce aux couches de CNN pour
-#1      devenir plus similaire à l'un des motifs sur lesquels le modèle a été entraîné
-#1      pour la comprendre.
-#1
-#1    # - On commence par créer un modèle qui contient des paramètres aléatoires,
-#1    # et cela génère des motifs aléatoires. Cependant, grâce à l'entraînement
-#1    # sur des exemples réels bien traités, le modèle devient capable d'extraire
-#1    # de petites images contenant des motifs caractérisant les informations
-#1    # complexes des nodules. Ainsi, il réduit la complexité des images de
-#1    # grande dimension en des images plus petites, pouvant être classifiées
-#1    # dans certaines classes.
-#1  image_path: "../../images/model2_c.png"
-#1  page: page 1/20
+- title: RÉSEAUX DE NEURONES ET DEEP LEARNING
+  paragraphs_1:
+    - réseau de neurones; structure consiste d un ensemble (couche ) de briques
+      élémentaire (neurones ) effectuant chacune des opérations simple.
+    - couche d entrée
+    - couche de traitement
+    - couche de sortie
+  image_path: "../../images/reseuxActicvation.png"
+  page: page 10/20
+
+- title: mathématique; le calcule d'un neurones
+  paragraphs_1:
+    - pp
+  # image_path: "../../images/3_nodules.png"
+  page: page 11/20
+
+- title: image et deep learning
+  paragraphs_1:
+    - L'apprentissage profond est très efficace pour l'analyse des images soit
+      classification ou segmentation par 7 étapes à suivre;
+    - collecte des données
+    - pré traitement des données
+    - creation d'un modele de deep learning
+    - entrainement du modèle
+    - validation et ajustement
+    - test du modèle
+    - déploiement
+  image_path: "../../images/structure_resnet.png"
+  page: page 12/20
+
+- title: Exemple de Deep learning dans la pratique
+  subtitle_1: Relation entre le
+  paragraphs_1:
+    - texte par1_b
+    - texte par2_a
+  image_path: "../../images/3_nodules.png"
+  page: page 13/20
+
+- title: LE PROCESSUS DE CRÉATION D'UN MODÈLE IA
+  subtitle_1: La phase de prétraitement des données
+  paragraphs_1:
+    # - comment L'utilisation de l'IA pour la détection et la classification
+    #   des nodules pulmonaires comporte deux parties essentielles.
+    - Consiste à détecter un grand nombre de nodules avec une grande sensibilité,
+      mais cela génère des faux positifs. Ensuite, la phase de détection réduit ces faux positifs.
+    - Normalisation des nodules pour avoir la même taille, les mêmes canaux de couleur, etc.
+  image_path: "../../images/model2_a.png"
+  page: page 14/20
+
+- title: LE PROCESSUS DE CRÉATION D'UN MODÈLE IA
+  subtitle_1: La phase d'entraînement du modèle
+  paragraphs_1:
+    - L'entraînement du modèle sur des images de nodules ou de lésions, par exemple,
+      modifie les paramètres du modèle pour devenir capable de créer certains motifs
+      qui révèlent les caractéristiques et les informations contenues dans les images.
+    - Ensuite, on peut classer ces motifs en certaines classes. Dans notre cas, il s'agit
+      de la classification binaire, avec deux classes; nodule ou non-nodule.
+  image_path: "../../images/model2_b.png"
+  page: page 15/20
+
+- title: LE PROCESSUS DE CRÉATION D'UN MODÈLE IA
+  subtitle_1: La phase de prédiction
+  paragraphs_1:
+    - Lorsqu'une nouvelle image, quelle que soit sa conception ou sa forme, est
+      introduite dans le modèle, elle est convertie grâce aux couches de CNN pour
+      devenir plus similaire à l'un des motifs sur lesquels le modèle a été entraîné
+      pour la comprendre.
+
+    # - On commence par créer un modèle qui contient des paramètres aléatoires,
+    # et cela génère des motifs aléatoires. Cependant, grâce à l'entraînement
+    # sur des exemples réels bien traités, le modèle devient capable d'extraire
+    # de petites images contenant des motifs caractérisant les informations
+    # complexes des nodules. Ainsi, il réduit la complexité des images de
+    # grande dimension en des images plus petites, pouvant être classifiées
+    # dans certaines classes.
+  image_path: "../../images/model2_c.png"
+  page: page 16/20
 
 - title: MATÉRIEL ET MÉTHODE
   subtitle_1: "Les en jeu de donnée"
@@ -122,7 +175,7 @@
     - Nous avons utilisé des ordinateurs équipés de GPUs stockés sur un site
       Web de recherche appelé Kaggle pour effectuer nos analyses.
   image_path: "../../images/martiel.png"
-  page: page 1/20
+  page: page 17/20
 
 - title: MATÉRIEL ET MÉTHODE.
   subtitle_1: Les jeux de données LUNA16/TRPMLN.
@@ -138,7 +191,7 @@
       extrayant les nodules qui ont une moyenne de malignité égale à 3 ou plus
       dans les annotations des quatre experts.
   image_path: "../../images/type_nodules.png"
-  page: page 1/20
+  page: page 18/20
 
 - title: ARCHITECTURE
   subtitle_1: "CNN & ResNET"
@@ -151,7 +204,7 @@
       d'apprentissage de 0,001, et la fonction de perte s'appelle l'entropie
       croisée binaire.
   image_path: "../../images/architicture.png"
-  page: page 1/20
+  page: page 19/20
 
 - title: RÉSULTATS DE MODEL DE DÉTECTION
   subtitle_1: "Résultat d'entraînement"
@@ -210,7 +263,7 @@
     #   qu'il n'a jamais vus.
   image_path: "../../images/class2.jpg"
   image_position: IMG_RIGHT
-  page: page 1/20
+  page: page 20/20
 
 - title: RÉSULTATS DE MODÈLE DE DÉTECTION
   subtitle_1: "Matrice de confusion"
@@ -222,7 +275,7 @@
     # diagramme de Sankey.
   image_path : "../../images/ch3_tab1.png"
 
-  page: page 1/20
+  page: page 21/20
 
 - title: RÉSULTATS DE MODÈLE DE DÉTECTION
   subtitle_1: "Diagrame de Sankey pour detection"
@@ -236,7 +289,7 @@
     #   les évaluer et les comparer avec d'autres modèles qui utilisent des
     #   nombres différents de nodules de test.
   image_path : "../../images/sankey_diagram_1.png"
-  page: page 1/20
+  page: page 22/20
 
 - title: RÉSULTATS DE MODÈLE DE DÉTECTION
   subtitle_1: Métriques d'évaluation
@@ -251,7 +304,7 @@
       F_1-Score   = (2 VP)/(2VP + FP + FN)
   image_path : "../../images/ch3_tab2.png"
   image_position: IMG_RIGHT
-  page: page 1/20
+  page: page 23/20
 
 - title: DISCUSSION DE MODÈLE DE DÉTECTION
   subtitle_1: Overfitting
@@ -270,7 +323,7 @@
       de précision, de sensibilité et de "F1-score".
   image_path : "../../images/ch3_tab6.png"
   image_position: IMG_RIGHT
-  page: page 1/20
+  page: page 24/20
 
 - title: MODÈLE DE CLASSIFICATION DES NODULE DE HAUT RISQUE DE MALIGNETE
   # subtitle_1: Overfitting
@@ -289,7 +342,7 @@
   #     de précision, de sensibilité et de "F1-score".
   image_path : "../../images/ch3_tab7.png"
   # image_position: IMG_RIGHT
-  page: page 1/20
+  page: page 24/20
 
 #3- title: "T2"
 #3  subtitle_1: "t2"
