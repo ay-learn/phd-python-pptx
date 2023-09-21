@@ -92,6 +92,15 @@
 - title: MATÉRIEL ET MÉTHODE
   subtitle_1: "Les en jeu de donnée"
   paragraphs_1:
+    # - Bonjour. Merci mon camarade pour ces informations importantes
+    #   Maintenant, passons à la partie pratique.
+    # - Dans notre étude, nous avons élaboré deux modèles de Deep Learning,
+    #   l'un pour détecter les nodules et l'autre pour la classification.
+    # - Nous utilisons comme source des images radiologiques annotées par
+    #   quatre experts. Ces images proviennent des ensembles de données
+    #   LIDC-IDRI et LUNA16, qui sont disponibles en ligne en open source.
+    #   Nous avons également créé un ensemble de données appelé TRPMLN.
+
     - Les ressources utilisées dans notre étude comprenaient des scans CT et
       des annotations provenant du dataset LIDC-IDRI, du dataset LUNA16 et
       TRPMLN.
@@ -103,71 +112,184 @@
       Web de recherche appelé Kaggle pour effectuer nos analyses.
   image_path: "../../images/martiel.png"
 
-#2- title: MATÉRIEL ET MÉTHODE.
-#2  subtitle_1: Les jeux de données LUNA16/TRPMLN.
-#2  paragraphs_1:
-#2    - Pour entraîner notres modèles de détection et de classification en utilisant
-#2      deux ensembles de données adaptés au Deep Learning, afin de faciliter
-#2      leur utilisation dans le Deep Learning, nous avons utilisé un
-#2      sous-ensemble de données appelé LUNA16 pour la détection des nodules, et
-#2      nous avons créé un sous-ensemble appelé TRPMLN pour classer les nodules
-#2      de haut risque de malignité.
-#2    - LUNA16 contient 6691 nodules annotés dans 888 scans thoraciques.
-#2    - TRPMLN contient 1568 nodules annotés dans 604 scans thoraciques, en
-#2      extrayant les nodules qui ont une moyenne de malignité égale à 3 ou plus
-#2      dans les annotations des quatre experts.
-#2
-#2
-#2- title: ARCHITECTURE
-#2  # subtitle_1: "Modèle 1"
-#2  paragraphs_1:
-#2    - nous avons expérimenté différentes combinaisons de couches et de filtres
-#2      pour trouver la meilleure architecture pour notre problème.
-#2    - Pour entraîner le modèle, on utiliser l'optimiseur Adam avec un taux
-#2      d'apprentissage de 0,001, et la fonction de perte s'appelle l'entropie
-#2      croisée binaire.
-#2  image_path: "../../images/architicture.png"
-#2
-#2- title: RÉSULTATS ET DISCUSSION
-#2  # Résultat d'entraînement de detection.
-#2  subtitle_1: "Modèle 1: détection des Nodules"
-#2  paragraphs_1:
-#2    - En examinant les valeurs de précision et de validation tout au long des
-#2      étapes d'apprentissage, on constate que le modèle acquiert des
-#2      connaissances, comme le montre l'amélioration progressive des précisions
-#2      d'entraînement et de validation.
-#2    - Le modèle commence avec des précisions relativement plus faibles, autour
-#2      de 64%, avant d'augmenter à plus de 89% et de terminer avec un score de
-#2      87% à la fin de l'entraînement.
-#2    - Cela démontre la capacité affinée du modèle à classer correctement un
-#2      pourcentage considérable de cas.
-#2  image_path: "../../images/class2.jpg"
-#2  image_position: IMG_RIGHT
-#2
-#2
-#2- title: "T1"
-#2  subtitle_1: "t1"
-#2  paragraphs_1:
-#2    - "Pou"
-#2  image_path : "../../images/ch3_tab1.png"
-#2
-#2
-#2- title: "T2"
-#2  subtitle_1: "t2"
-#2  paragraphs_1:
-#2    - "Pou"
-#2  image_path : "../../images/ch3_tab2.png"
-#2
-#2
-#2- title: "Exemple de Deep "
-#2  subtitle_1: "Relation entre "
-#2  paragraphs_1:
-#2    - "Pou"
-#2  image_path : "../../images/structure_resnet.png"
-#2
-#2
-#2- title: "Exemple de Deep le"
-#2  subtitle_1: "Relation entre les réseaux "
-#2  paragraphs_1:
-#2    - "Pou"
-#2  image_path : "../../images/resnet_model6.png"
+- title: MATÉRIEL ET MÉTHODE.
+  subtitle_1: Les jeux de données LUNA16/TRPMLN.
+  paragraphs_1:
+    - Pour entraîner notres modèles de détection et de classification en
+      utilisant deux ensembles de données adaptés et faciliter leur
+      utilisation dans le Deep Learning, nous avons utilisé un sous-ensemble
+      de données appelé LUNA16 pour la détection des nodules, et nous avons
+      créé un sous-ensemble appelé TRPMLN pour classer les nodules de haut
+      risque de malignité.
+    - LUNA16 contient 6691 nodules annotés dans 888 scans thoraciques.
+    - TRPMLN contient 1568 nodules annotés dans 304 scans thoraciques, en
+      extrayant les nodules qui ont une moyenne de malignité égale à 3 ou plus
+      dans les annotations des quatre experts.
+  image_path: "../../images/type_nodules.png"
+
+
+- title: ARCHITECTURE
+  subtitle_1: "CNN & ResNET"
+  paragraphs_1:
+    # - Comme architecture du modèle, on utilise des couches CNN dans le
+    #   framework TensorFlow.
+    - Nous avons expérimenté différentes combinaisons de couches et de filtres
+      pour trouver la meilleure hyerparameter de CNNs architecture pour notre problème.
+    - Pour entraîner le modèle, on utiliser l'optimiseur Adam avec un taux
+      d'apprentissage de 0,001, et la fonction de perte s'appelle l'entropie
+      croisée binaire.
+  image_path: "../../images/architicture.png"
+
+- title: RÉSULTATS DE MODEL DE DÉTECTION
+  subtitle_1: "Résultat d'entraînement"
+  paragraphs_1:
+    # - Nous avons divisé le DATASET en deux parties pour cacher une partie des
+    #   données en vue de l'évaluation du modèle, car la validation du modèle sur
+    #   de nouveaux candidats nous donne la vraie performance du modèle.
+    #
+    # - Ces courbes représentent l'état d'entraînement du modèle.
+    # - La courbe bleue correspond à la précision obtenue lors de l'entraînement
+    #   avec les nodules d'entraînement.
+    # - La courbe jaune correspond à la précision obtenue lors de l'évaluation
+    #   avec les nodules de test (comme de nouveaux nodules).
+    #
+    # - L'essentiel est que le graphe de validation atteigne la meilleure valeur.
+    #
+    # - Il est très important de visualiser l'état d'entraînement, époque par
+    #   époque, pour voir si le modèle s'entraîne correctement ou non.
+    #
+    # - Si la précision est égale à 50%, on parle de prédiction aléatoire, donc
+    #   le modèle ne comprend rien.
+    # - Si le modèle s'entraîne un peu et que la précision n'augmente pas, on
+    #   arrête l'entraînement et on ajuste d'autres hyperparamètres.
+    # - Si la courbe d'entraînement augmente et que la courbe de validation
+    #   n'augmente pas, le modèle mémorise les nodules au lieu de comprendre le
+    #   motif.
+
+    - En examinant les valeurs de l’exactitude et de l’exactitude de validation
+      tout au long des étapes d'apprentissage, on constate que le modèle
+      acquiert des connaissances, comme le montre l'amélioration progressive
+      des précisions d'entraînement et de validation.
+    - Le modèle commence avec des précisions relativement plus faibles, autour
+      de 64%, avant d'augmenter à plus de 89% et de terminer avec un score de
+      87% à la fin de l'entraînement.
+    - Cela démontre la capacité affinée du modèle à classer correctement un
+      pourcentage considérable de cas.
+
+    # - À l'aide de la fonction de coût, qui calcule l'erreur entre les valeurs
+    #   approximées et les valeurs réelles, nous utilisons l'optimisation Adam
+    #   pour améliorer l'approximation de ce modèle de Deep-Learning. Cependant,
+    #   plusieurs contraintes empêchent l'optimisation des paramètres du modèle.
+    #   Pour résoudre cela, nous ajustons les hyperparamètres afin de trouver des
+    #   combinaisons permettant de minimiser les erreurs et d'augmenter la
+    #   précision.
+    # - Nous testons plusieurs modèles un par un, en les entraînant sur un
+    #   certain nombre d'époques et en visualisant les résultats. Nous observons
+    #   si les performances des modèles s'améliorent au fil du temps en examinant
+    #   les courbes d'entraînement et de validation.
+    #
+    # - À chaque époque, on calcule l'erreur, on essaie d'optimiser cette erreur,
+    #   et on teste la performance en utilisant tous les nodules d'entraînement
+    #   pour mettre à jour la courbe d'entraînement. Ensuite, on teste le modèle
+    #   avec les nodules de test pour mettre à jour la courbe de validation.
+    # - Le meilleur modèle que l'on trouve est bien entraîné sur les candidats
+    #   qu'il a déjà vus et affiche une performance de 89% sur les candidats
+    #   qu'il n'a jamais vus.
+  image_path: "../../images/class2.jpg"
+  image_position: IMG_RIGHT
+
+
+- title: RÉSULTATS DE MODÈLE DE DÉTECTION
+  subtitle_1: "Matrice de confusion"
+  paragraphs_1:
+    - L'utilisation des 1339 nodules de test que le modèle n'a pas encore vus
+      pour la détection des nodules/lésions se traduit par une matrice de
+      confusion.
+    # - Pour visualiser la signification de ces nombres, on peut utiliser le
+    # diagramme de Sankey.
+  image_path : "../../images/ch3_tab1.png"
+
+- title: RÉSULTATS DE MODÈLE DE DÉTECTION
+  subtitle_1: "Diagrame de Sankey pour detection"
+  # paragraphs_1:
+    # - Si l'on passe 882 lésions et 517 nodules à travers le modèle de
+    #   détection, on obtient 771 prédictions de vraies lésions et 404
+    #   prédictions de vrais nodules.
+    # - Malheureusement, le modèle prédit 133 nodules comme étant des lésions et
+    #   51 lésions comme étant des nodules.
+    # - Comment les erreurs de ces résultats sont exprimées mathématiquement pour
+    #   les évaluer et les comparer avec d'autres modèles qui utilisent des
+    #   nombres différents de nodules de test.
+  image_path : "../../images/sankey_diagram_1.png"
+
+
+- title: RÉSULTATS DE MODÈLE DE DÉTECTION
+  subtitle_1: Métriques d'évaluation
+  paragraphs_1:
+    - La performance du modèle peut a été évaluée à partir de la matrice de
+      confusion, qui permet de calculer des métriques comme la précision, la
+      sensibilité (recall) et le F1-Score, en plus de l’exactitude.
+    - Ces mesures fournissent un aperçu plus large des performances du modèle,
+      notamment quand il y a un déséquilibre des classes.
+    - précision   = (VP) / (VP + FP)
+      sensibilité = (VP) / (VP + FN)
+      F_1-Score   = (2 VP)/(2VP + FP + FN)
+  image_path : "../../images/ch3_tab2.png"
+  image_position: IMG_RIGHT
+
+- title: DISCUSSION DE MODÈLE DE DÉTECTION
+  subtitle_1: Overfitting
+  paragraphs_1:
+    - L'exactitude de l'entraînement atteint 100 %,ce qui est un signe clair
+      de surapprentissage(overfitting), surtout par rapport à l'exactitude de
+      validation qui est bien inférieure. Le surajustement signifie que le
+      modèle a trop bien appris les données d'entraînement.
+    - Pour résoudre les problèmes de Overfitting, il faut augmenter le nombre
+      d'échantillons ou utiliser des techniques de Deep Learning, telles que
+      des techniques de régularisation comme la technique d'intention.
+    - Comparaison avec nos résultats, notre modèle de classification de nodule
+      ou lésion est performant de manière compétente dans l'identification des
+      deux classes.
+    - En général, le modèle a performé de manière impressionnante en termes
+      de précision, de sensibilité et de "F1-score".
+  image_path : "../../images/ch3_tab6.png"
+  image_position: IMG_RIGHT
+
+- title: MODÈLE DE CLASSIFICATION DES NODULE DE HAUT RISQUE DE MALIGNETE
+  # subtitle_1: Overfitting
+  # paragraphs_1:
+  #   - L'exactitude de l'entraînement atteint 100 %,ce qui est un signe clair
+  #     de surapprentissage(overfitting), surtout par rapport à l'exactitude de
+  #     validation qui est bien inférieure. Le surajustement signifie que le
+  #     modèle a trop bien appris les données d'entraînement.
+  #   - Pour résoudre les problèmes de Overfitting, il faut augmenter le nombre
+  #     d'échantillons ou utiliser des techniques de Deep Learning, telles que
+  #     des techniques de régularisation comme la technique d'intention.
+  #   - Comparaison avec nos résultats, notre modèle de classification de nodule
+  #     ou lésion est performant de manière compétente dans l'identification des
+  #     deux classes.
+  #   - En général, le modèle a performé de manière impressionnante en termes
+  #     de précision, de sensibilité et de "F1-score".
+  image_path : "../../images/ch3_tab7.png"
+  # image_position: IMG_RIGHT
+
+
+#3- title: "T2"
+#3  subtitle_1: "t2"
+#3  paragraphs_1:
+#3    - "Pou"
+#3  image_path : "../../images/ch3_tab2.png"
+#3
+#3
+#3- title: "Exemple de Deep "
+#3  subtitle_1: "Relation entre "
+#3  paragraphs_1:
+#3    - "Pou"
+#3  image_path : "../../images/structure_resnet.png"
+#3
+#3
+#3- title: "Exemple de Deep le"
+#3  subtitle_1: "Relation entre les réseaux "
+#3  paragraphs_1:
+#3    - "Pou"
+#3  image_path : "../../images/resnet_model6.png"
