@@ -1,22 +1,27 @@
+#1  subtitle_3: page 1/20
+
 #1- title: INTRODUCTION
 #1  paragraphs_1:
 #1    - Le deep learning ou l'apprentissage profond est une  méthode
 #1      d'apprentissage automatique qui permet à une machine d'apprendre à partir
 #1      des données en utilisant des réseaux de neurones artificielles.
 #1  image_path: "../../images/ais.png"
-#1
+#1  subtitle_3: page 1/20
+
 #1- title: fonctionnement de deep learning
 #1  paragraphs_1:
 #1    - le fonctionnement de deep learning se base sur des réseaux de neurone
 #1      imitant le cerveau humain.
 #1  image_path: "../../images/fonctionement_y.png"
-#1
+#1  subtitle_3: page 1/20
+
 #1- title: application de deep learning
 #1  paragraphs_1:
 #1    - en plein essor depuis une dizaine d'années le deep learning utile dans
 #1      divers domaine
 #1  # image_path: "../../images/3_nodules.png"
-#1
+#1  subtitle_3: page 1/20
+
 #1- title: RÉSEAUX DE NEURONES ET DEEP LEARNING
 #1  paragraphs_1:
 #1    - réseau de neurones; structure consiste d un ensemble (couche ) de briques
@@ -25,12 +30,14 @@
 #1    - couche de traitement
 #1    - couche de sortie
 #1  image_path: "../../images/reseuxActicvation.png"
-#1
+#1  subtitle_3: page 1/20
+
 #1- title: mathématique; le calcule d'un neurones
 #1  paragraphs_1:
 #1    - pp
 #1  # image_path: "../../images/3_nodules.png"
-#1
+#1  subtitle_3: page 1/20
+
 #1- title: image et deep learning
 #1  paragraphs_1:
 #1    - L'apprentissage profond est très efficace pour l'analyse des images soit
@@ -43,14 +50,16 @@
 #1    - test du modèle
 #1    - déploiement
 #1  image_path: "../../images/structure_resnet.png"
-#1
+#1  subtitle_3: page 1/20
+
 #1- title: Exemple de Deep learning dans la pratique
 #1  subtitle_1: Relation entre le
 #1  paragraphs_1:
 #1    - texte par1_b
 #1    - texte par2_a
 #1  image_path: "../../images/3_nodules.png"
-#1
+#1  subtitle_3: page 1/20
+
 #1- title: LE PROCESSUS DE CRÉATION D'UN MODÈLE IA
 #1  subtitle_1: La phase de prétraitement des données
 #1  paragraphs_1:
@@ -60,7 +69,8 @@
 #1      mais cela génère des faux positifs. Ensuite, la phase de détection réduit ces faux positifs.
 #1    - Normalisation des nodules pour avoir la même taille, les mêmes canaux de couleur, etc.
 #1  image_path: "../../images/model2_a.png"
-#1
+#1  subtitle_3: page 1/20
+
 #1- title: LE PROCESSUS DE CRÉATION D'UN MODÈLE IA
 #1  subtitle_2: La phase d'entraînement du modèle
 #1  paragraphs_2:
@@ -70,7 +80,8 @@
 #1    - Ensuite, on peut classer ces motifs en certaines classes. Dans notre cas, il s'agit
 #1      de la classification binaire, avec deux classes; nodule ou non-nodule.
 #1  image_path: "../../images/model2_b.png"
-#1
+#1  subtitle_3: page 1/20
+
 #1- title: LE PROCESSUS DE CRÉATION D'UN MODÈLE IA
 #1  subtitle_3: La phase de prédiction
 #1  paragraphs_3:
@@ -87,7 +98,7 @@
 #1    # grande dimension en des images plus petites, pouvant être classifiées
 #1    # dans certaines classes.
 #1  image_path: "../../images/model2_c.png"
-
+#1  subtitle_3: page 1/20
 
 - title: MATÉRIEL ET MÉTHODE
   subtitle_1: "Les en jeu de donnée"
@@ -111,6 +122,7 @@
     - Nous avons utilisé des ordinateurs équipés de GPUs stockés sur un site
       Web de recherche appelé Kaggle pour effectuer nos analyses.
   image_path: "../../images/martiel.png"
+  subtitle_3: page 1/20
 
 - title: MATÉRIEL ET MÉTHODE.
   subtitle_1: Les jeux de données LUNA16/TRPMLN.
@@ -126,7 +138,7 @@
       extrayant les nodules qui ont une moyenne de malignité égale à 3 ou plus
       dans les annotations des quatre experts.
   image_path: "../../images/type_nodules.png"
-
+  subtitle_3: page 1/20
 
 - title: ARCHITECTURE
   subtitle_1: "CNN & ResNET"
@@ -139,6 +151,7 @@
       d'apprentissage de 0,001, et la fonction de perte s'appelle l'entropie
       croisée binaire.
   image_path: "../../images/architicture.png"
+  subtitle_3: page 1/20
 
 - title: RÉSULTATS DE MODEL DE DÉTECTION
   subtitle_1: "Résultat d'entraînement"
@@ -197,7 +210,7 @@
     #   qu'il n'a jamais vus.
   image_path: "../../images/class2.jpg"
   image_position: IMG_RIGHT
-
+  subtitle_3: page 1/20
 
 - title: RÉSULTATS DE MODÈLE DE DÉTECTION
   subtitle_1: "Matrice de confusion"
@@ -208,6 +221,8 @@
     # - Pour visualiser la signification de ces nombres, on peut utiliser le
     # diagramme de Sankey.
   image_path : "../../images/ch3_tab1.png"
+
+  subtitle_3: page 1/20
 
 - title: RÉSULTATS DE MODÈLE DE DÉTECTION
   subtitle_1: "Diagrame de Sankey pour detection"
@@ -221,7 +236,7 @@
     #   les évaluer et les comparer avec d'autres modèles qui utilisent des
     #   nombres différents de nodules de test.
   image_path : "../../images/sankey_diagram_1.png"
-
+  subtitle_3: page 1/20
 
 - title: RÉSULTATS DE MODÈLE DE DÉTECTION
   subtitle_1: Métriques d'évaluation
@@ -236,6 +251,7 @@
       F_1-Score   = (2 VP)/(2VP + FP + FN)
   image_path : "../../images/ch3_tab2.png"
   image_position: IMG_RIGHT
+  subtitle_3: page 1/20
 
 - title: DISCUSSION DE MODÈLE DE DÉTECTION
   subtitle_1: Overfitting
@@ -254,6 +270,7 @@
       de précision, de sensibilité et de "F1-score".
   image_path : "../../images/ch3_tab6.png"
   image_position: IMG_RIGHT
+  subtitle_3: page 1/20
 
 - title: MODÈLE DE CLASSIFICATION DES NODULE DE HAUT RISQUE DE MALIGNETE
   # subtitle_1: Overfitting
@@ -272,24 +289,25 @@
   #     de précision, de sensibilité et de "F1-score".
   image_path : "../../images/ch3_tab7.png"
   # image_position: IMG_RIGHT
-
+  subtitle_3: page 1/20
 
 #3- title: "T2"
 #3  subtitle_1: "t2"
 #3  paragraphs_1:
 #3    - "Pou"
 #3  image_path : "../../images/ch3_tab2.png"
-#3
-#3
+#3  subtitle_3: page 1/20
+
 #3- title: "Exemple de Deep "
 #3  subtitle_1: "Relation entre "
 #3  paragraphs_1:
 #3    - "Pou"
 #3  image_path : "../../images/structure_resnet.png"
-#3
-#3
+#3  subtitle_3: page 1/20
+
 #3- title: "Exemple de Deep le"
 #3  subtitle_1: "Relation entre les réseaux "
 #3  paragraphs_1:
 #3    - "Pou"
 #3  image_path : "../../images/resnet_model6.png"
+#3  subtitle_3: page 1/20
