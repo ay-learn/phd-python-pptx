@@ -171,7 +171,7 @@
 # ---------------------------------------------------------
 
 - title: MATÉRIEL ET MÉTHODE
-  subtitle_1: "Les en jeu de donnée"
+  subtitle_1: Les enjeux de données
   paragraphs_1:
     # - Bonjour. Merci mon camarade pour ces informations importantes
     #   Maintenant, passons à la partie pratique.
@@ -220,7 +220,7 @@
     # - Comme architecture du modèle, on utilise des couches CNN dans le
     #   framework TensorFlow.
     - Nous avons expérimenté différentes combinaisons de couches et de filtres
-      pour trouver la meilleure hyerparameter de CNNs architecture pour notre problème.
+      pour trouver la meilleure architecture de CNNs pour notre problème.
     - Pour entraîner le modèle, on utiliser l'optimiseur Adam avec un taux
       d'apprentissage de 0,001, et la fonction de perte s'appelle l'entropie
       croisée binaire.
@@ -230,7 +230,7 @@
 # ---------------------------------------------------------
 
 - title: RÉSULTATS DE MODEL DE DÉTECTION
-  subtitle_1: "Résultat d'entraînement"
+  subtitle_1: "Résultats d'entraînement"
   paragraphs_1:
     # - Nous avons divisé le DATASET en deux parties pour cacher une partie des
     #   données en vue de l'évaluation du modèle, car la validation du modèle sur
@@ -304,7 +304,7 @@
 # ---------------------------------------------------------
 
 - title: RÉSULTATS DE MODÈLE DE DÉTECTION
-  subtitle_1: "Diagrame de Sankey pour detection"
+  subtitle_1: "Diagramme de Sankey pour la detection"
   # paragraphs_1:
     # - Si l'on passe 882 lésions et 517 nodules à travers le modèle de
     #   détection, on obtient 771 prédictions de vraies lésions et 404
@@ -346,8 +346,8 @@
     - Pour résoudre les problèmes de Overfitting, il faut augmenter le nombre
       d'échantillons ou utiliser des techniques de Deep Learning, telles que
       des techniques de régularisation comme la technique d'intention.
-    - Comparaison avec nos résultats, notre modèle de classification de nodule
-      ou lésion est performant de manière compétente dans l'identification des
+    - En comparant avec nos résultats, notre modèle de classification des nodules
+      ou lésions est performant de manière compétente dans l'identification des
       deux classes.
     - En général, le modèle a performé de manière impressionnante en termes
       de précision, de sensibilité et de "F1-score".
@@ -360,18 +360,6 @@
 - title: MODÈLE DE CLASSIFICATION DES NODULE DE HAUT RISQUE DE MALIGNETE
   # subtitle_1: Overfitting
   # paragraphs_1:
-  #   - L'exactitude de l'entraînement atteint 100 %,ce qui est un signe clair
-  #     de surapprentissage(overfitting), surtout par rapport à l'exactitude de
-  #     validation qui est bien inférieure. Le surajustement signifie que le
-  #     modèle a trop bien appris les données d'entraînement.
-  #   - Pour résoudre les problèmes de Overfitting, il faut augmenter le nombre
-  #     d'échantillons ou utiliser des techniques de Deep Learning, telles que
-  #     des techniques de régularisation comme la technique d'intention.
-  #   - Comparaison avec nos résultats, notre modèle de classification de nodule
-  #     ou lésion est performant de manière compétente dans l'identification des
-  #     deux classes.
-  #   - En général, le modèle a performé de manière impressionnante en termes
-  #     de précision, de sensibilité et de "F1-score".
   image_path : "../../images/ch3_tab7.png"
   # image_position: IMG_RIGHT
   page: page 24/24
