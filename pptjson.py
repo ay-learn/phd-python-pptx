@@ -36,6 +36,7 @@ ALIGN_H_CENTER = PP_ALIGN.CENTER
 ALIGN_H_LEFT = PP_ALIGN.LEFT
 ALIGN_H_RIGHT = PP_ALIGN.RIGHT
 ALIGN_H_JUSTIFY = PP_ALIGN.JUSTIFY_LOW
+# ALIGN_H_JUSTIFY = PP_ALIGN.JUSTIFY
 ALIGN_H_DISTRIBUTE = PP_ALIGN.DISTRIBUTE
 ALIGN_H_THAI_DISTRIBUTE = PP_ALIGN.THAI_DISTRIBUTE
 ALIGN_H_MIXED = PP_ALIGN.MIXED
@@ -173,8 +174,10 @@ class Paragraph(TextElement):
     #
     #     return TextElement(paragraph)
 
-    def add_paragraph_1(self, text, color=None, font_size=None, font_name=None):
+    def add_paragraph_1(self, text="", color=None, font_size=None, font_name=None):
         paragraph = self.shape.text_frame.add_paragraph()
+
+        paragraph.alignment = ALIGN_H_JUSTIFY
 
         run = paragraph.add_run()
         run.text = text
@@ -467,7 +470,7 @@ def add_slide_from_data(slide_data):
         print("\tpar_width:", par_width)
 
     else:
-        par_width = Inches(15)
+        par_width = Inches(14.5)
 
     # '''
 
@@ -559,8 +562,8 @@ def add_slide_from_data(slide_data):
         .height(Inches(1))
         .X(4.5)
         .Y(2)
-        .align_H(ALIGN_H_RIGHT)
         .spacing()
+        # .align_H(ALIGN_H_JUSTIFY)
     )
 
     p_size = 22
