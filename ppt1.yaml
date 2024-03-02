@@ -4,6 +4,8 @@
     - Le cancer du poumon est une cause majeure de décès par cancer.
     - Les scanners thoraciques peuvent repérer des nodules pulmonaires, mais les algorithmes de détection comportent deux étapes; une recherche sensible générant de nombreux faux positifs, suivie d'une réduction de ces faux positifs grâce à des caractéristiques améliorées.
     - Cette étude a utilisé un réseau neuronal convolutionnel sur des scanners thoraciques des patients, montrant une performance de détection et classification de nodules.
+  image_path: "images/f1.jpg"
+  image_position: IMG_RIGHT
   page: page 1/24
 
 # ---------------------------------------------------------
