@@ -443,10 +443,10 @@ def add_slide_from_data(slide_data):
     slide = Slide(presentation)
 
     title = slide_data.get("title", "")
-    subtitle_1 = slide_data.get("subtitle_1", "")
+    subtitle = slide_data.get("subtitle", "")
     subtitle_2 = slide_data.get("subtitle_2", "")
     page = slide_data.get("page", "")
-    paragraphs_1 = slide_data.get("paragraphs_1", [])
+    paragraphs = slide_data.get("paragraphs", [])
     paragraphs_2 = slide_data.get("paragraphs_2", [])
     paragraphs_3 = slide_data.get("paragraphs_3", [])
     image = slide_data.get("image_path", "")
@@ -491,9 +491,9 @@ def add_slide_from_data(slide_data):
             .shrink(SHRINK_SHAPE)
         )
 
-    if subtitle_1:
+    if subtitle:
         (
-            slide.add_subtitle_1(subtitle_1)
+            slide.add_subtitle_1(subtitle)
             .X(2)
             .Y(1)
             .width(Inches(14))
@@ -567,8 +567,8 @@ def add_slide_from_data(slide_data):
     )
 
     p_size = 22
-    if paragraphs_1:
-        for paragraph in paragraphs_1:
+    if paragraphs:
+        for paragraph in paragraphs:
             slide.add_paragraph_1(
                 text=paragraph,
                 color=BLACK,
@@ -602,7 +602,7 @@ def add_slide_from_data(slide_data):
 presentation = Presentation("t2.pptx")
 
 # load_slides_from_json("ppt1.json")
-load_slides_from_yaml("f3.yaml")
+load_slides_from_yaml("f4.yaml")
 
 remove_first_slide(presentation)
 presentation.save("new_slide.pptx")
