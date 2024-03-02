@@ -391,7 +391,7 @@ class Slide:
         width, image_path = get_img_width(image_path, image_position)
 
         if image_position == IMG_RIGHT:
-            left = Inches(16) - width
+            left = Inches(16) - width - Inches(0.25)
             top = Inches(3)
 
             self.shapes.add_picture(image_path, left=left, top=top, width=width)
@@ -455,7 +455,7 @@ def add_slide_from_data(slide_data):
     img_width, _ = get_img_width(image, image_position)
 
     if image_position == IMG_RIGHT:
-        par_width = int(Inches(15) - img_width)
+        par_width = int(Inches(15) - img_width - Inches(0.50))
         if par_width < 0:
             print("img_width is bigger")
             par_width = 0
@@ -602,7 +602,7 @@ def add_slide_from_data(slide_data):
 presentation = Presentation("t2.pptx")
 
 # load_slides_from_json("ppt1.json")
-load_slides_from_yaml("ppt1.yaml")
+load_slides_from_yaml("f3.yaml")
 
 remove_first_slide(presentation)
 presentation.save("new_slide.pptx")
