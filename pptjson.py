@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-import collections.abc
 import json
 import os
 import random
 import string
 import sys
-import xml.etree.ElementTree as ET
 
 import cairosvg
 import cv2
@@ -13,13 +11,13 @@ import pptx
 import yaml
 from PIL import Image
 from pptx.dml.color import RGBColor
-from pptx.enum.text import MSO_ANCHOR
-from pptx.enum.text import MSO_AUTO_SIZE
-from pptx.enum.text import MSO_VERTICAL_ANCHOR
-from pptx.enum.text import PP_ALIGN
+from pptx.enum.text import MSO_AUTO_SIZE, MSO_VERTICAL_ANCHOR, PP_ALIGN
+from pptx.util import Inches, Pt
+
+# add
+from pptx.enum.lang import MSO_LANGUAGE_ID
+from lxml import etree
 from pptx.oxml.xmlchemy import OxmlElement
-from pptx.util import Inches
-from pptx.util import Pt
 
 SHRINK_NONE = MSO_AUTO_SIZE.NONE
 SHRINK_TEXT = MSO_AUTO_SIZE.SHAPE_TO_FIT_TEXT
@@ -49,7 +47,7 @@ BLACK = RGBColor(0, 0, 0)
 WHITE = RGBColor(255, 255, 255)
 
 IMG_BUTTOM = "IMG_BUTTOM"
-IMG_RIGHT = "IMG_RIGHT"
+IMG_BESIDE = "IMG_RIGHT"
 
 
 def get_image_dpi(image_path):
@@ -61,7 +59,7 @@ def get_image_dpi(image_path):
                 return dpi
             else:
                 return None
-    except Exception as e:
+    except Exception:
         return None
 
 
@@ -123,6 +121,7 @@ class TextElement:
             for run in paragraph.runs:
                 font = run.font
                 font.name = name
+                font.language_id = LANG  # MSO_LANGUAGE_ID.ARABIC
         return self
 
     def spacing(self):
@@ -137,6 +136,7 @@ class TextElement:
     def align_H(self, alignment):
         for paragraph in self.shape.text_frame.paragraphs:
             paragraph.alignment = alignment
+            paragraph.level = LEVEL
         return self
 
     def align_V(self, anchor):
@@ -177,10 +177,13 @@ class Paragraph(TextElement):
     def add_paragraph_1(self, text="", color=None, font_size=None, font_name=None):
         paragraph = self.shape.text_frame.add_paragraph()
 
-        paragraph.alignment = ALIGN_H_JUSTIFY
+        # paragraph.alignment = ALIGN_H_JUSTIFY
+        paragraph.level = LEVEL
+        paragraph.alignment = ALIGN
 
         run = paragraph.add_run()
         run.text = text
+        run.level = LEVEL
 
         if color:
             run.font.color.rgb = color
@@ -190,35 +193,36 @@ class Paragraph(TextElement):
             run.font.name = font_name
         return TextElement(paragraph)
 
-    def add_paragraph_2(self, text, color=None, font_size=None, font_name=None):
-        paragraph = self.shape.text_frame.add_paragraph()
+    # def add_paragraph_2(self, text, color=None, font_size=None, font_name=None):
+    #     paragraph = self.shape.text_frame.add_paragraph()
+    #     paragraph = self
 
-        run = paragraph.add_run()
-        run.text = text
+    #     run = paragraph.add_run()
+    #     run.text = text
 
-        if color:
-            run.font.color.rgb = color
-        if font_size:
-            run.font.size = Pt(font_size)
-        if font_name:
-            run.font.name = font_name
+    #     if color:
+    #         run.font.color.rgb = color
+    #     if font_size:
+    #         run.font.size = Pt(font_size)
+    #     if font_name:
+    #         run.font.name = font_name
 
-        return TextElement(paragraph)
+    #     return TextElement(paragraph)
 
-    def add_paragraph_3(self, text, color=None, font_size=None, font_name=None):
-        paragraph = self.shape.text_frame.add_paragraph()
+    # def add_paragraph_3(self, text, color=None, font_size=None, font_name=None):
+    #     paragraph = self.shape.text_frame.add_paragraph()
 
-        run = paragraph.add_run()
-        run.text = text
+    #     run = paragraph.add_run()
+    #     run.text = text
 
-        if color:
-            run.font.color.rgb = color
-        if font_size:
-            run.font.size = Pt(font_size)
-        if font_name:
-            run.font.name = font_name
+    #     if color:
+    #         run.font.color.rgb = color
+    #     if font_size:
+    #         run.font.size = Pt(font_size)
+    #     if font_name:
+    #         run.font.name = font_name
 
-        return TextElement(paragraph)
+    #     return TextElement(paragraph)
 
 
 # p = text_frame.paragraphs[0]
@@ -270,7 +274,7 @@ def get_img_width(image_path, image_position):
     image_height_inches = image_height / dpi_y
 
     width = Inches(4) * image_width_inches / image_height_inches
-    if image_position == IMG_RIGHT:
+    if image_position == IMG_BESIDE:
         if width > Inches(5):
             width = Inches(5)
     else:
@@ -334,11 +338,11 @@ class Slide:
     def add_paragraph_1(self, text=None, color=None, font_size=None, font_name=None):
         return self.paragraph_shape_1.add_paragraph_1(text, color, font_size, font_name)
 
-    def add_paragraph_2(self, text=None, color=None, font_size=None, font_name=None):
-        return self.paragraph_shape_2.add_paragraph_2(text, color, font_size, font_name)
+    # def add_paragraph_2(self, text=None, color=None, font_size=None, font_name=None):
+    #     return self.paragraph_shape_2.add_paragraph_2(text, color, font_size, font_name)
 
-    def add_paragraph_3(self, text=None, color=None, font_size=None, font_name=None):
-        return self.paragraph_shape_3.add_paragraph_3(text, color, font_size, font_name)
+    # def add_paragraph_3(self, text=None, color=None, font_size=None, font_name=None):
+    #     return self.paragraph_shape_3.add_paragraph_3(text, color, font_size, font_name)
 
     def set_paragraph_1(self, width=None, height=None, X=None, Y=None, rgb=None):
         if width is not None:
@@ -353,30 +357,30 @@ class Slide:
             self.paragraph_shape_1.color(rgb)
         return self.paragraph_shape_1
 
-    def set_paragraph_2(self, width=None, height=None, X=None, Y=None, rgb=None):
-        if width is not None:
-            self.paragraph_shape_2.width(width)
-        if height is not None:
-            self.paragraph_shape_2.height(height)
-        if X is not None:
-            self.paragraph_shape_2.X(Y)
-        if Y is not None:
-            self.paragraph_shape_2.Y(Y)
-        if rgb is not None:
-            self.paragraph_shape_2.color(rgb)
-        return self.paragraph_shape_2
+        # def set_paragraph_2(self, width=None, height=None, X=None, Y=None, rgb=None):
+        #     if width is not None:
+        #         self.paragraph_shape_2.width(width)
+        #     if height is not None:
+        #         self.paragraph_shape_2.height(height)
+        #     if X is not None:
+        #         self.paragraph_shape_2.X(Y)
+        #     if Y is not None:
+        #         self.paragraph_shape_2.Y(Y)
+        #     if rgb is not None:
+        #         self.paragraph_shape_2.color(rgb)
+        #     return self.paragraph_shape_2
 
-    def set_paragraph_3(self, width=None, height=None, X=None, Y=None, rgb=None):
-        if width is not None:
-            self.paragraph_shape_3.width(width)
-        if height is not None:
-            self.paragraph_shape_3.height(height)
-        if X is not None:
-            self.paragraph_shape_3.X(Y)
-        if Y is not None:
-            self.paragraph_shape_3.Y(Y)
-        if rgb is not None:
-            self.paragraph_shape_3.color(rgb)
+        # def set_paragraph_3(self, width=None, height=None, X=None, Y=None, rgb=None):
+        #     if width is not None:
+        #         self.paragraph_shape_3.width(width)
+        #     if height is not None:
+        #         self.paragraph_shape_3.height(height)
+        #     if X is not None:
+        #         self.paragraph_shape_3.X(Y)
+        #     if Y is not None:
+        #         self.paragraph_shape_3.Y(Y)
+        #     if rgb is not None:
+        #         self.paragraph_shape_3.color(rgb)
         return self.paragraph_shape_3
 
     def add_image(self, image_path=None, image_position=None):
@@ -390,7 +394,7 @@ class Slide:
         height = Inches(4)
         width, image_path = get_img_width(image_path, image_position)
 
-        if image_position == IMG_RIGHT:
+        if image_position == IMG_BESIDE:
             left = Inches(16) - width - Inches(0.25)
             top = Inches(3)
 
@@ -454,20 +458,14 @@ def add_slide_from_data(slide_data):
 
     img_width, _ = get_img_width(image, image_position)
 
-    if image_position == IMG_RIGHT:
+    if image_position == IMG_BESIDE:
         par_width = int(Inches(15) - img_width - Inches(0.50))
         if par_width < 0:
             print("img_width is bigger")
             par_width = 0
         print(
-            "IMG_RIGHT: 15 Inches(",
-            Inches(15),
-            ") - img_width(",
-            img_width,
-            ")",
-            end="",
+            f"IMG_BESIDE: 15 Inches({Inches(15)}) - img_width({img_width}) \tpar_width: {par_width}"
         )
-        print("\tpar_width:", par_width)
 
     else:
         par_width = Inches(14.5)
@@ -480,7 +478,7 @@ def add_slide_from_data(slide_data):
             .X(0.5)
             .Y(0.5)
             .width(Inches(15))
-            .height(Inches(4))
+            .height(Inches(1))
             .upper()
             .color(RED)
             .bold()
@@ -497,12 +495,12 @@ def add_slide_from_data(slide_data):
             .X(2)
             .Y(1)
             .width(Inches(14))
-            .height(Inches(20))
+            .height(Inches(1))
             .bold()
             .color(GREEN)
             .font_size(36)
             .font_name("Monotype Corsiva")
-            .align_H(ALIGN_H_LEFT)
+            .align_H(ALIGN)
             .align_V(ALIGN_V_TOP)
             .shrink(SHRINK_TEXT)
         )
@@ -518,33 +516,35 @@ def add_slide_from_data(slide_data):
     #         .color(GREEN)
     #         .font_size(36)
     #         .font_name("Monotype Corsiva")
-    #         .align_H(ALIGN_H_LEFT)
+    #         .align_H(ALIGN)
     #         .align_V(ALIGN_V_TOP)
     #         .shrink(SHRINK_TEXT)
     #     )
-    if page:
-        (
-            slide.add_page(page)
-            .X(8.35)
-            .Y(7.50)
-            .width(Inches(14))
-            .height(Inches(20))
-            # .bold()
-            .color(WHITE)
-            .font_size(18)
-            .font_name("Arial")
-            .align_H(ALIGN_H_LEFT)
-            .align_V(ALIGN_V_TOP)
-            .shrink(SHRINK_TEXT)
-        )
+    # if page:
+    #     (
+    #         slide.add_page(page)
+    #         .X(8.35)
+    #         .Y(7.50)
+    #         .width(Inches(14))
+    #         .height(Inches(20))
+    #         # .bold()
+    #         .color(WHITE)
+    #         .font_size(18)
+    #         .font_name("Arial")
+    #         .align_H(ALIGN)
+    #         .align_V(ALIGN_V_TOP)
+    #         .shrink(SHRINK_TEXT)
+    #     )
 
     (
         slide.set_paragraph_1()
         .width(par_width)
-        .height(Inches(20))
+        .height(Inches(6))
         .X(2.5)
         .Y(1)
-        .align_H(ALIGN_H_RIGHT)
+        .font_size(36)
+        .font_name("Monotype Corsiva")
+        .align_H(ALIGN)
         .spacing()
     )
     # (
@@ -553,18 +553,18 @@ def add_slide_from_data(slide_data):
     #     .height(Inches(20))
     #     .X(2.5)
     #     .Y(1)
-    #     .align_H(ALIGN_H_RIGHT)
+    #     .align_H(ALIGN)
     #     .spacing()
     # )
-    (
-        slide.set_paragraph_3()
-        .width(par_width)
-        .height(Inches(1))
-        .X(4.5)
-        .Y(2)
-        .spacing()
-        # .align_H(ALIGN_H_JUSTIFY)
-    )
+    # (
+    #     slide.set_paragraph_3()
+    #     .width(par_width)
+    #     .height(Inches(1))
+    #     .X(4.5)
+    #     .Y(2)
+    #     .spacing()
+    #     # .align_H(ALIGN_H_JUSTIFY)
+    # )
 
     p_size = 22
     if paragraphs:
@@ -595,9 +595,44 @@ def add_slide_from_data(slide_data):
     #         )
 
     slide.add_image(image_path=image, image_position=image_position)
-    # '''
+
     return slide
 
+
+def RtoL(shape):
+    textb = shape.text_frame._txBody
+    for bad in textb.xpath("./a:p/a:pPr"):
+        bad.set("rtl", "1")
+
+
+def set_rtl(presentation):
+    for slide in presentation.slides:
+        for shape in slide.shapes:
+            if shape.has_text_frame:
+                textb = shape.text_frame._txBody
+                for bad in textb.xpath("./a:p/a:pPr"):
+                    bad.set("rtl", "1")
+
+
+def del_empty_palaceholder(presentation):
+    for slide in presentation.slides:
+        for placeholder in slide.placeholders:
+            if not placeholder.text_frame.text:  # check if the text is empty
+                placeholder.element.delete()
+
+
+ARABIC = 1  # True/FALSE
+
+if ARABIC:
+    print("ARABIC")
+    LANG = MSO_LANGUAGE_ID.ARABIC
+    ALIGN = ALIGN_H_RIGHT
+else:
+    print("ENGLISH")
+    LANG = MSO_LANGUAGE_ID.ENGLISH_US
+    ALIGN = ALIGN_H_LEFT
+
+LEVEL = 0
 
 presentation = Presentation("t2.pptx")
 
@@ -605,4 +640,7 @@ presentation = Presentation("t2.pptx")
 load_slides_from_yaml("f4.yaml")
 
 remove_first_slide(presentation)
+if ARABIC:
+    set_rtl(presentation)
+del_empty_palaceholder(presentation)
 presentation.save("new_slide.pptx")
