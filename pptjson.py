@@ -284,7 +284,7 @@ class Slide:
             self.paragraph_shape.color(rgb)
         return self.paragraph_shape
 
-    def add_image(self, image_path=None, image_position=None):
+    def add_image(self, image_path=None, image_position=None, left=None, top=None):
         if image_path is None or image_path == "":
             print(f"image_path={image_path}", file=sys.stderr)
             return self
@@ -296,22 +296,9 @@ class Slide:
         width, image_path = get_img_width(image_path, image_position)
 
         if image_position == IMG_BESIDE:
-            if ARABIC:
-                left = Inches(0.25)
-                top = Inches(3)
-            else:
-                left = Inches(16) - width - Inches(0.25)
-                top = Inches(3)
-
             self.shapes.add_picture(image_path, left=left, top=top, width=width)
-
         else:
-            left = (Inches(16) - width) / 2
-            top = Inches(4.30)
-
-            self.shapes.add_picture(
-                image_path, left=left, top=top, width=width, height=height
-            )
+            self.shapes.add_picture(image_path, left=left, top=top, width=width, height=height)
         return self
 
     def save(self, path):
@@ -369,17 +356,21 @@ def add_slide_from_data(slide_data):
         if par_width < 0:
             print("img_width is bigger")
             par_width = 0
-        print(
-            f"IMG_BESIDE: 15 Inches({Inches(15)}) - img_width({img_width}) \tpar_width: {par_width}"
-        )
+        print(f"IMG_BESIDE: 15 Inches({Inches(15)}) - img_width({img_width}) \tpar_width: {par_width}")
 
         if ARABIC:
             TEXT_START = int(img_width + Inches(0.5))
+            IMG_START = Inches(0.25)
+            IMG_TOP = Inches(3)
         else:
             TEXT_START = Inches(1)
+            IMG_START = Inches(16) - img_width - Inches(0.25)
+            IMG_TOP = Inches(3)
     else:
         par_width = Inches(14.5)
         TEXT_START = Inches(1)
+        IMG_START = (Inches(16) - img_width) // 2
+        IMG_TOP = Inches(4.3)
 
     if title:
         (
@@ -434,7 +425,7 @@ def add_slide_from_data(slide_data):
             )
 
     if image:
-        slide.add_image(image_path=image, image_position=image_position)
+        slide.add_image(image_path=image, image_position=image_position, left=IMG_START, top=IMG_TOP)
 
     return slide
 
@@ -461,7 +452,7 @@ def del_empty_palaceholder(presentation):
                 placeholder.element.delete()
 
 
-ARABIC = 1  # True/FALSE
+ARABIC = 0  # True/FALSE
 
 if ARABIC:
     print("ARABIC")
@@ -470,6 +461,7 @@ if ARABIC:
 else:
     print("ENGLISH")
     LANG = MSO_LANGUAGE_ID.ENGLISH_US
+    LANG = MSO_LANGUAGE_ID.FRENCH
     ALIGN = ALIGN_H_LEFT
 LEVEL = 0
 
@@ -478,7 +470,7 @@ PARAGAPH_FONT_SIZE = 26
 presentation = Presentation("t2.pptx")
 
 # load_slides_from_json("ppt1.json")
-load_slides_from_yaml("f4.yaml")
+load_slides_from_yaml("f.yaml")
 
 remove_first_slide(presentation)
 if ARABIC:
