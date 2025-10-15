@@ -4,49 +4,6 @@
     "title": "Exemple de Deep learning dans la pratique",
     "subtitle": "Relation entre le",
     "paragraphs": ["Pour comprendr"],
-    "image_path":"../../images/3_nodules.png"
-  },
-  {
-    "title": "LE PROCESSUS DE CRÉATION D'UN IA MODEL",
-    "subtitle": "La phase d'entraînement du modèle:",
-    "paragraphs": [
-      "L'utilisation de l'IA pour la détection et la classification des nodules pulmonaires comporte deux parties essentielles:",
-      "le prétraitement des données",
-      "consiste a détecter un large éventail de nodules avec une grande sensibilité, mais elle génère des faux positifs. La phase suivante réduit ces faux positifs>>",
-      "La Détection des nodules",
-      "+ *La phase d'entraînement du modèle*: si l'on entraîne le modèle sur 100 images, par exemple des nodules ou des lésions, le modèle essaie de modifier ses paramètres pour devenir capable de créer certains motifs, par exemple 10 motifs qui caractérisent ces nodules, et ensuite peut classer ces motifs en classes. Dans la classification binaire, nous avons deux classes, soit nodule, soit non-nodule.",
-      "+ *La phase de prédiction*: On entre simplement une image qui peut avoir n'importe quel design, mais grâce aux CNN, cette image devient plus similaire à l'un des motifs sur lesquels le modèle a été entraîné pour la comprendre."
-    ],
-    "image_path1":"../../images/model2.png"
-  },
-  {
-    "title": "Exemple2",
-    "subtitle": "Relat",
-    "paragraphs": ["Pou"],
-    "image_path":"../../images/class2.svg"
-  },
-  {
-    "title": "T1",
-    "subtitle": "t1",
-    "paragraphs": ["-"],
-    "image_path":"../../images/ch3_tab1.png"
-  },
-  {
-    "title": "T2",
-    "subtitle": "t2",
-    "paragraphs": ["-"],
-    "image_path":"../../images/ch3_tab2.png"
-  },
-  {
-    "title": "Exemple de Deep ",
-    "subtitle": "Relation entre ",
-    "paragraphs": ["Pour compren"],
-    "image_path":"../../images/structure_resnet.png"
-  },
-  {
-    "title": "Exemple de Deep le",
-    "subtitle": "Relation entre les réseaux ",
-    "paragraphs": ["Pour comprendr"],
-    "image_path":"../../images/resnet_model6.png"
+    "image_path":"foo.png"
   }
 ]
