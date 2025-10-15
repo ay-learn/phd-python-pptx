@@ -449,7 +449,7 @@ def del_empty_palaceholder(presentation):
     for slide in presentation.slides:
         for placeholder in slide.placeholders:
             if not placeholder.text_frame.text:  # check if the text is empty
-                placeholder.element.delete()
+                placeholder.element.clear()
 
 
 ARABIC = 0  # True/FALSE
@@ -469,8 +469,8 @@ PARAGAPH_FONT_SIZE = 26
 
 presentation = Presentation("t2.pptx")
 
-# load_slides_from_json("ppt1.json")
-load_slides_from_yaml("f.yaml")
+load_slides_from_json("ppt1.json")
+# load_slides_from_yaml("ppt1.yaml")
 
 remove_first_slide(presentation)
 if ARABIC:
