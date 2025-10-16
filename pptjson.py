@@ -467,9 +467,9 @@ LEVEL = 0
 
 PARAGAPH_FONT_SIZE = 26
 
-presentation = Presentation("t2.pptx")
+presentation = Presentation("t6.pptx")
 
-load_slides_from_json("ppt1.json")
+load_slides_from_json("ppt3.json")
 # load_slides_from_yaml("ppt1.yaml")
 
 remove_first_slide(presentation)
